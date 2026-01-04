@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeroConnect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="z.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            background: #0a0a14;
+        }
+
+        /* Imagem de fundo */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background: url('https://cdn.gameleap.com/images/articles/art_9Bzbz8cyt0/art-img_JoBs3Zspi/1x.webp') center/cover no-repeat;
+            filter: brightness(0.7);
+        }
+
+        .app-container {
+            min-height: 100vh;
+            display: flex;
+            position: relative;
+        }
+
+        /* Sidebar esquerda limpa */
+        .left-sidebar {
+            width: 80px;
+            min-height: 100vh;
+            background: rgba(10, 10, 20, 0.2);
+            backdrop-filter: blur(8px);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 30px;
+            z-index: 100;
+            gap: 30px;
+        }
+
+        /* Logo */
+        .logo-container {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.08);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Ícone de Voltar na Sidebar */
+        .sidebar-back-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .sidebar-back-icon:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.1);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Conteúdo principal */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-top: 50px;
+            max-width: 600px;
+        }
+
+        /* Título no topo */
+        .title-section {
+            margin-bottom: 20px;
+        }
+
+        .title-main {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 70px;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.95);
+            letter-spacing: -1px;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .title-subtext {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 42px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        /* Descrição abaixo do título */
+        .description-section {
+            margin-top: 15px;
+            max-width: 500px;
+        }
+
+        .description-title {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 8px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .description-text {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+        }
+
+        /* Menu de usuário */
+        .user-menu {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            z-index: 1000;
+        }
+
+        .user-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 17px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .user-icon:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 48px;
+            right: 0;
+            width: 170px;
+            background: rgba(15, 15, 25, 0.85);
+            backdrop-filter: blur(15px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 11px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 12px;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .dropdown-item i {
+            width: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Ícones sociais no lado direito */
+        .right-sidebar {
+            position: fixed;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .social-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 17px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px) scale(1.1);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Card no canto inferior esquerdo */
+        .bottom-left-card {
+            position: fixed;
+            left: 90px;
+            bottom: 25px;
+            width: 300px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+
+        .bottom-left-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .card-image-placeholder {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(45deg, rgba(255,255,255,0.08), rgba(255,255,255,0.12));
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            overflow: hidden;
+        }
+
+        .card-image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .card-content {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+
+        .card-subtitle {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* Botão Hoyo Play - PRETO NO HOVER E PULSE VISÍVEL */
+        .hoyoplay-button-container {
+            position: fixed;
+            right: 150px;
+            bottom: 50px;
+            z-index: 60;
+        }
+
+        .hoyoplay-button {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #FFD700; /* Amarelo */
+            border: 2px solid #000000;
+            border-radius: 35px;
+            padding: 14px 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            animation: visiblePulse 3s infinite;
+        }
+
+        /* BOTÃO PRETO NO HOVER */
+        .hoyoplay-button:hover {
+            transform: translateY(-5px);
+            background: #000000; /* Preto no hover */
+            border-color: #FFD700; /* Borda amarela no hover */
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+        }
+
+        .hoyoplay-icon {
+            font-size: 22px;
+            color: #000000; /* Ícone preto normalmente */
+            transition: all 0.3s ease;
+        }
+
+        /* ÍCONE AMARELO NO HOVER (quando o botão fica preto) */
+        .hoyoplay-button:hover .hoyoplay-icon {
+            color: #FFD700; /* Ícone amarelo no hover */
+            transform: scale(1.2) rotate(8deg);
+        }
+
+        .hoyoplay-text {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: #000000; /* Texto preto normalmente */
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+        }
+
+        /* TEXTO AMARELO NO HOVER (quando o botão fica preto) */
+        .hoyoplay-button:hover .hoyoplay-text {
+            color: #FFD700; /* Texto amarelo no hover */
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Animação de pulso VISÍVEL que combina com amarelo */
+        @keyframes visiblePulse {
+            0%, 100% {
+                box-shadow: 
+                    0 5px 20px rgba(0, 0, 0, 0.3),
+                    0 0 0 0 rgba(255, 215, 0, 0.6); /* Amarelo forte */
+            }
+            50% {
+                box-shadow: 
+                    0 5px 20px rgba(0, 0, 0, 0.3),
+                    0 0 0 12px rgba(255, 215, 0, 0); /* Pulsação maior */
+            }
+        }
+
+        /* Animações */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .fade-in {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .float-animation {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .delay-1 { animation-delay: 0.2s; opacity: 0; }
+        .delay-2 { animation-delay: 0.4s; opacity: 0; }
+        .delay-3 { animation-delay: 0.6s; opacity: 0; }
+        .delay-4 { animation-delay: 0.8s; opacity: 0; }
+        .delay-5 { animation-delay: 1.0s; opacity: 0; }
+        .delay-6 { animation-delay: 1.2s; opacity: 0; }
+        .delay-7 { animation-delay: 1.4s; opacity: 0; }
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .hoyoplay-button-container {
+                right: 100px;
+                bottom: 45px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+            
+            .left-sidebar {
+                width: 100%;
+                min-height: auto;
+                flex-direction: row;
+                padding: 15px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .logo-container {
+                margin: 0;
+            }
+            
+            .sidebar-back-icon {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .main-content {
+                padding: 30px;
+                padding-top: 20px;
+                max-width: 100%;
+            }
+            
+            .title-main {
+                font-size: 50px;
+            }
+            
+            .title-subtext {
+                font-size: 32px;
+            }
+            
+            .bottom-left-card {
+                position: relative;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                max-width: 300px;
+                margin: 30px 0 0 0;
+            }
+            
+            .right-sidebar {
+                position: relative;
+                top: 0;
+                transform: none;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin: 25px auto 0;
+                right: 0;
+                gap: 10px;
+            }
+            
+            .social-icon:hover {
+                transform: translateY(-5px) scale(1.1);
+            }
+            
+            .hoyoplay-button-container {
+                position: relative;
+                right: 0;
+                bottom: 0;
+                margin: 40px auto 0;
+                display: flex;
+                justify-content: center;
+            }
+            
+            .hoyoplay-button {
+                padding: 12px 24px;
+                transform: none !important;
+            }
+            
+            .hoyoplay-button:hover {
+                transform: translateY(-5px) !important;
+            }
+            
+            .hoyoplay-text {
+                font-size: 16px;
+                letter-spacing: 1px;
+            }
+            
+            .hoyoplay-icon {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title-main {
+                font-size: 40px;
+            }
+            
+            .title-subtext {
+                font-size: 26px;
+            }
+            
+            .description-text {
+                font-size: 12px;
+            }
+            
+            .left-sidebar {
+                padding: 12px;
+                gap: 15px;
+            }
+            
+            .social-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .bottom-left-card {
+                max-width: 280px;
+            }
+            
+            .sidebar-back-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+            
+            .hoyoplay-button {
+                padding: 10px 20px;
+                border-radius: 30px;
+            }
+            
+            .hoyoplay-text {
+                font-size: 15px;
+                letter-spacing: 0.8px;
+            }
+            
+            .hoyoplay-icon {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Imagem de fundo -->
+    <div class="background-image"></div>
+
+    <div class="app-container">
+        <!-- Sidebar esquerda limpa -->
+        <div class="left-sidebar">
+            <div class="logo-container">
+                <img src="z.png" alt="Logo">
+            </div>
+            
+            <!-- Ícone de voltar abaixo da logo -->
+            <a href="projetos.html" class="sidebar-back-icon fade-in delay-1" title="Voltar para Projetos">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+
+        <!-- Conteúdo principal -->
+        <div class="main-content">
+            <!-- Título no topo -->
+            <div class="title-section fade-in">
+                <div class="title-main">ZeroConnect</div>
+                <div class="title-subtext fade-in delay-1 float-animation">for the Night</div>
+            </div>
+
+            <!-- Descrição abaixo do título -->
+            <div class="description-section fade-in delay-2">
+                <div class="description-title">Plataforma Social Integrada</div>
+                <div class="description-text">
+                    Conecte-se com comunidades, compartilhe experiências e descubra conteúdo exclusivo. 
+                    Uma nova maneira de interagir e se envolver em ambientes digitais.
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu de usuário -->
+        <div class="user-menu">
+            <div class="user-icon fade-in" id="userIcon">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Perfil</span>
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-comments"></i>
+                    <span>Chat</span>
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Configurações</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Ícones sociais no lado direito -->
+        <div class="right-sidebar">
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/gustta_mastergg" target="_blank" class="social-icon fade-in delay-1">
+                <i class="fab fa-instagram"></i>
+            </a>
+
+            <!-- Discord -->
+            <a href="https://discord.com/users/1366076126337962046 " target="_blank" class="social-icon fade-in delay-3">
+                <i class="fab fa-discord"></i>
+            </a>
+
+            <!-- YouTube -->
+            <a href="https://www.youtube.com/@VexoDanger" target="_blank" class="social-icon fade-in delay-4">
+                <i class="fab fa-youtube"></i>
+            </a>
+
+            <!-- TikTok -->
+            <a href="https://www.tiktok.com/@gustta.rayray" target="_blank" class="social-icon fade-in delay-5">
+                <i class="fab fa-tiktok"></i>
+            </a>
+
+            <!-- WhatsApp -->
+            <a href="https://wa.me/998488662" target="_blank" class="social-icon fade-in delay-6">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/loirinhodid " target="_blank" class="social-icon fade-in delay-7">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+
+        <!-- Botão Hoyo Play - COM EFEITOS CORRIGIDOS -->
+        <div class="hoyoplay-button-container fade-in delay-4">
+            <a href="https://hoyoplay.hoyoverse.com" target="_blank" class="hoyoplay-button" title="Acessar HoyoPlay">
+                <div class="hoyoplay-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div class="hoyoplay-text">HOYO PLAY</div>
+            </a>
+        </div>
+
+        <!-- Card no canto inferior esquerdo -->
+        <div class="bottom-left-card fade-in delay-3">
+            <div class="card-image-placeholder">
+                <!-- Imagem da HoyoPlay -->
+                <img src="https://preview.redd.it/pre-download-is-now-available-via-hoyoplay-pc-v0-jvu8j7o280ad1.png?width=1080&crop=smart&auto=webp&s=6ef94e166e07f806b718b0a27960eda2da2d182c" alt="HoyoPlay PC">
+            </div>
+            <div class="card-title">HoyoPlay download Disponível</div>
+            <div class="card-content">
+                A HoYoverse anunciou que o download para PC já está disponível através da plataforma HoyoPlay. 
+                Prepare-se para a nova atualização baixando os arquivos antecipadamente.
+            </div>
+            <div class="card-subtitle">Fonte: HoYoverse Official</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos da interface
+            const userIcon = document.getElementById('userIcon');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            const socialIcons = document.querySelectorAll('.social-icon');
+            const hoyoplayButton = document.querySelector('.hoyoplay-button');
+            
+            // Menu dropdown do usuário
+            userIcon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('active');
+            });
+            
+            document.addEventListener('click', function() {
+                dropdownMenu.classList.remove('active');
+            });
+            
+            dropdownMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+            
+            // Interação com ícones sociais
+            socialIcons.forEach(icon => {
+                icon.addEventListener('click', function(e) {
+                    // Efeito visual de clique
+                    this.style.transform = 'translateX(-5px) scale(1.05)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateX(-5px) scale(1.1)';
+                    }, 100);
+                    
+                    const iconClass = this.querySelector('i').className;
+                    let platformName = '';
+                    
+                    // Identifica a plataforma corretamente
+                    if (iconClass.includes('fa-instagram')) platformName = 'Instagram';
+                    else if (iconClass.includes('fa-x-twitter')) platformName = 'X (Twitter)';
+                    else if (iconClass.includes('fa-discord')) platformName = 'Discord';
+                    else if (iconClass.includes('fa-youtube')) platformName = 'YouTube';
+                    else if (iconClass.includes('fa-tiktok')) platformName = 'TikTok';
+                    else if (iconClass.includes('fa-whatsapp')) platformName = 'WhatsApp';
+                    else if (iconClass.includes('fa-github')) platformName = 'GitHub';
+                    
+                    console.log(`Abrindo ${platformName}...`);
+                });
+            });
+            
+            // Efeito especial no botão Hoyo Play
+            if (hoyoplayButton) {
+                hoyoplayButton.addEventListener('mouseenter', function() {
+                    this.style.animation = 'visiblePulse 1.5s infinite';
+                });
+                
+                hoyoplayButton.addEventListener('mouseleave', function() {
+                    this.style.animation = 'visiblePulse 3s infinite';
+                });
+                
+                // Efeito de clique
+                hoyoplayButton.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-2px) scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-5px)';
+                    }, 150);
+                });
+            }
+            
+            // Efeito de digitação no título
+            const titleMain = document.querySelector('.title-main');
+            const originalText = titleMain.textContent;
+            titleMain.textContent = '';
+            
+            let charIndex = 0;
+            function typeWriter() {
+                if (charIndex < originalText.length) {
+                    titleMain.textContent += originalText.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
+            
+            // Iniciar animação
+            setTimeout(typeWriter, 500);
+        });
+    </script>
+</body>
+</html>
