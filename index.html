@@ -3,11 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZeroConnect</title>
+    <title>ZeroConect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="z.png" type="image/png">
+   <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeroConect</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="z.png" type="image/png">
     <style>
+        /* ================================
+           RESET E BASE
+        ================================ */
         * {
             margin: 0;
             padding: 0;
@@ -31,7 +43,7 @@
             width: 100%;
             height: 100%;
             z-index: -3;
-            background: url('https://cdn.gameleap.com/images/articles/art_9Bzbz8cyt0/art-img_JoBs3Zspi/1x.webp') center/cover no-repeat;
+            background: url('https://cms-assets.xboxservices.com/assets/f1/45/f145af02-5fd7-4759-8387-85afc1da2ec2.jpg?n=ZZZ_GLP-Page-Hero-1084_1920x1080_01.jpg') center/cover no-repeat;
             filter: brightness(0.7);
         }
 
@@ -41,123 +53,880 @@
             position: relative;
         }
 
-        /* Sidebar esquerda limpa */
+        /* ================================
+           SIDEBAR ESQUERDA TRANSPARENTE
+        ================================ */
         .left-sidebar {
             width: 80px;
             min-height: 100vh;
-            background: rgba(10, 10, 20, 0.2);
-            backdrop-filter: blur(8px);
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(10, 10, 20, 0.3);
+            backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(255, 255, 255, 0.12);
             display: flex;
             flex-direction: column;
             align-items: center;
             padding-top: 30px;
             z-index: 100;
-            gap: 30px;
+            gap: 20px;
+            position: relative;
         }
 
-        /* Logo */
+        .left-sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.05) 0%,
+                transparent 20%,
+                transparent 80%,
+                rgba(255, 255, 255, 0.05) 100%
+            );
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Logo com mais visibilidade */
         .logo-container {
             width: 50px;
             height: 50px;
             border-radius: 50%;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .logo-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            border-radius: 50%;
+            z-index: 1;
         }
 
         .logo-container:hover {
-            transform: scale(1.08);
-            border-color: rgba(255, 255, 255, 0.25);
+            transform: scale(1.1);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), 0 8px 25px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .logo-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            position: relative;
+            z-index: 2;
+            filter: brightness(1.1) contrast(1.1);
         }
 
-        /* Ícone de Voltar na Sidebar */
-        .sidebar-back-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+        /* Ícones da Sidebar com mais visibilidade */
+        .sidebar-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             color: rgba(255, 255, 255, 0.9);
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar-icon.active {
+            background: rgba(74, 109, 229, 0.4);
+            border-color: rgba(74, 109, 255, 0.5);
+            box-shadow: 0 0 20px rgba(74, 109, 229, 0.4);
+        }
+
+        /* Ícone Home - Azul mais visível */
+        .sidebar-icon.home {
+            background: rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .sidebar-icon.home:hover {
+            background: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.6);
+        }
+
+        .sidebar-icon.home.active {
+            background: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Ícone Games - Verde mais visível */
+        .sidebar-icon.games {
+            background: rgba(34, 197, 94, 0.3);
+            border-color: rgba(34, 197, 94, 0.5);
+        }
+
+        .sidebar-icon.games:hover {
+            background: rgba(34, 197, 94, 0.4);
+            box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
+            border-color: rgba(34, 197, 94, 0.6);
+        }
+
+        /* Ícone Projetos - Laranja mais visível */
+        .sidebar-icon.projects {
+            background: rgba(249, 115, 22, 0.3);
+            border-color: rgba(249, 115, 22, 0.5);
+        }
+
+        .sidebar-icon.projects:hover {
+            background: rgba(249, 115, 22, 0.4);
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+            border-color: rgba(249, 115, 22, 0.6);
+        }
+
+        /* Tooltips para todos os ícones */
+        .sidebar-icon::after {
+            content: attr(title);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            pointer-events: none;
+            backdrop-filter: blur(5px);
+        }
+
+        .sidebar-icon:hover::after {
+            opacity: 1;
+            visibility: visible;
+            bottom: -30px;
+        }
+
+        /* Ícone Mais Opções - MAIOR E MAIS VISÍVEL */
+        .more-options-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            background: rgba(157, 78, 221, 0.3);
+            border: 1px solid rgba(157, 78, 221, 0.5);
+            animation: purplePulse 2s infinite;
+            overflow: hidden;
+            padding: 0;
+            box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
+        }
+
+        .more-options-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(199, 125, 255, 0.2), rgba(157, 78, 221, 0.3));
+            border-radius: 16px;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .more-options-icon:hover::before {
+            opacity: 1;
+        }
+
+        .more-options-icon::after {
+            content: 'APPS';
+            position: absolute;
+            bottom: -28px;
+            font-size: 11px;
+            color: #c77dff;
+            font-weight: bold;
+            opacity: 0.9;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            z-index: 3;
+            text-shadow: 0 0 5px rgba(199, 125, 255, 0.5);
+        }
+
+        .more-options-icon:hover {
+            background: rgba(157, 78, 221, 0.4);
+            transform: translateY(-3px) scale(1.05);
+            border-color: rgba(199, 125, 255, 0.7);
+            box-shadow: 0 10px 25px rgba(157, 78, 221, 0.5);
+        }
+
+        .more-options-icon:hover::after {
+            color: #e0aaff;
+            opacity: 1;
+            text-shadow: 0 0 8px rgba(224, 170, 255, 0.7);
+        }
+
+.more-options-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 14px;
+    filter: drop-shadow(0 0 12px rgba(199, 125, 255, 0.95));
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+
+     .more-options-icon:hover img {
+    transform: scale(1.12) rotate(6deg);
+    filter: drop-shadow(0 0 18px rgba(199, 125, 255, 1));
+}
+
+
+        @keyframes purplePulse {
+            0%, 100% { 
+                box-shadow: 0 0 15px rgba(157, 78, 221, 0.5), 0 4px 15px rgba(157, 78, 221, 0.3); 
+            }
+            50% { 
+                box-shadow: 0 0 25px rgba(157, 78, 221, 0.7), 0 6px 20px rgba(157, 78, 221, 0.4); 
+            }
+        }
+
+        /* ================================
+           CONTEÚDO PRINCIPAL
+        ================================ */
+        .main-content {
+            flex: 1;
+            padding: 40px 60px;
+            display: flex;
+            flex-direction: column;
+            padding-top: 30px;
+            max-width: 1000px;
+        }
+
+        /* Header do Launcher */
+        .hub-header {
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hub-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 48px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hub-subtitle {
             font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            line-height: 1.5;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ================================
+           BARRA DE APPS - APENAS ÍCONES
+        ================================ */
+        .apps-sidebar {
+            position: fixed;
+            top: 0;
+            left: -400px;
+            width: 380px;
+            height: 100vh;
+            background: rgba(15, 15, 25, 0.98);
+            backdrop-filter: blur(25px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 10px 0 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .apps-sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            padding: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(20, 20, 30, 0.8);
+        }
+
+        .sidebar-header h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-sidebar {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .close-sidebar:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: rotate(90deg);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-content {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            justify-content: center;
+            background: rgba(10, 10, 20, 0.5);
+        }
+
+        /* GRID DE ÍCONES APENAS */
+        .apps-grid-icons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* ÍCONES APENAS */
+        .app-icon-only {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .app-icon-only:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px) scale(1.1);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .app-icon-only img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            border-radius: 8px;
+            filter: brightness(1.1);
+        }
+
+        /* Tooltip */
+        .app-icon-only::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            pointer-events: none;
+            backdrop-filter: blur(5px);
+        }
+
+        .app-icon-only:hover::after {
+            opacity: 1;
+            visibility: visible;
+            bottom: -35px;
+        }
+
+        /* ================================
+           PÁGINA INTERNA DO APP - SIMPLIFICADA
+        ================================ */
+        .app-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(30px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .app-page.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .app-page-content {
+            width: 90%;
+            height: 85vh;
+            max-width: 900px;
+            background: rgba(15, 15, 25, 0.95);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+            transform: scale(0.95);
+            transition: transform 0.4s ease;
+        }
+
+        .app-page.active .app-page-content {
+            transform: scale(1);
+        }
+
+        /* HEADER COM BOTÃO NO TOPO */
+        .app-page-header {
+            padding: 25px 30px;
+            background: rgba(20, 20, 30, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .app-page-header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1;
+        }
+
+        .app-page-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .app-page-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            filter: brightness(1.1);
+        }
+
+        .app-page-title {
+            flex: 1;
+        }
+
+        .app-page-title h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            color: white;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .app-page-title p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* BOTÃO PRINCIPAL NO TOPO */
+        .app-main-button-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #4a6de5, #6a8eff);
+            border: none;
+            border-radius: 40px;
+            padding: 15px 30px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-        }
-
-        .sidebar-back-icon:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.1);
-            border-color: rgba(255, 255, 255, 0.25);
-        }
-
-        /* Conteúdo principal */
-        .main-content {
-            flex: 1;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            padding-top: 50px;
-            max-width: 600px;
-        }
-
-        /* Título no topo */
-        .title-section {
-            margin-bottom: 20px;
-        }
-
-        .title-main {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 70px;
-            line-height: 1;
-            color: rgba(255, 255, 255, 0.95);
-            letter-spacing: -1px;
-            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .title-subtext {
+            box-shadow: 0 8px 25px rgba(74, 109, 229, 0.4);
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            font-size: 42px;
-            color: rgba(255, 255, 255, 0.9);
-            margin-top: 5px;
-            letter-spacing: -0.5px;
+            font-size: 18px;
+            color: white;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
-        /* Descrição abaixo do título */
-        .description-section {
-            margin-top: 15px;
-            max-width: 500px;
+        .app-main-button-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(74, 109, 229, 0.6);
+            background: linear-gradient(135deg, #5a7dff, #7a9eff);
         }
 
-        .description-title {
+        .app-main-button-top i {
+            font-size: 20px;
+        }
+
+        /* Cores específicas */
+        .app-main-button-top.spotify {
+            background: linear-gradient(135deg, #1DB954, #1ed760);
+            box-shadow: 0 8px 25px rgba(29, 185, 84, 0.4);
+        }
+
+        .app-main-button-top.spotify:hover {
+            background: linear-gradient(135deg, #2ed96a, #3ee97a);
+            box-shadow: 0 12px 35px rgba(29, 185, 84, 0.6);
+        }
+
+        .app-main-button-top.whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .app-main-button-top.whatsapp:hover {
+            background: linear-gradient(135deg, #35e376, #229c8e);
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+        }
+
+        .app-main-button-top.youtube {
+            background: linear-gradient(135deg, #FF0000, #FF3333);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+        }
+
+        .app-main-button-top.youtube:hover {
+            background: linear-gradient(135deg, #ff1a1a, #ff4d4d);
+            box-shadow: 0 12px 35px rgba(255, 0, 0, 0.6);
+        }
+
+        .app-main-button-top.netflix {
+            background: linear-gradient(135deg, #E50914, #B81D24);
+            box-shadow: 0 8px 25px rgba(229, 9, 20, 0.4);
+        }
+
+        .app-main-button-top.netflix:hover {
+            background: linear-gradient(135deg, #f51924, #c82d34);
+            box-shadow: 0 12px 35px rgba(229, 9, 20, 0.6);
+        }
+
+        .app-main-button-top.jw {
+            background: linear-gradient(135deg, #9B1B30, #C41E3A);
+            box-shadow: 0 8px 25px rgba(155, 27, 48, 0.4);
+        }
+
+        .app-main-button-top.riot {
+            background: linear-gradient(135deg, #FF4654, #FF6B7A);
+            box-shadow: 0 8px 25px rgba(255, 70, 84, 0.4);
+        }
+
+        .app-main-button-top.google {
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
+        }
+
+        .app-main-button-top.vscode {
+            background: linear-gradient(135deg, #007ACC, #0066B3);
+            box-shadow: 0 8px 25px rgba(0, 122, 204, 0.4);
+        }
+
+        .app-main-button-top.github {
+            background: linear-gradient(135deg, #333, #555);
+            box-shadow: 0 8px 25px rgba(51, 51, 51, 0.4);
+        }
+
+        .app-main-button-top.office {
+            background: linear-gradient(135deg, #D83B01, #F25022);
+            box-shadow: 0 8px 25px rgba(216, 59, 1, 0.4);
+        }
+
+        .app-main-button-top.gmail {
+            background: linear-gradient(135deg, #EA4335, #FBBC05);
+            box-shadow: 0 8px 25px rgba(234, 67, 53, 0.4);
+        }
+
+        .app-main-button-top.epic {
+            background: linear-gradient(135deg, #2A2A2A, #121212);
+            box-shadow: 0 8px 25px rgba(42, 42, 42, 0.4);
+        }
+
+        .app-main-button-top.discord {
+            background: linear-gradient(135deg, #5865F2, #7289DA);
+            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.4);
+        }
+
+        .app-main-button-top.drive {
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
+        }
+
+        /* Botão fechar */
+        .close-page {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .close-page:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: rotate(90deg);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        /* CORPO COM IMAGEM DE FUNDO */
+        .app-page-body {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-page-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.25;
+            z-index: 1;
+        }
+
+        /* Conteúdo minimalista */
+        .app-page-main {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .app-category {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 20px;
+            border-radius: 20px;
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 8px;
-            font-weight: 500;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ================================
+           CARD INFORMATIVO
+        ================================ */
+        .info-card {
+            position: fixed;
+            left: 90px;
+            bottom: 25px;
+            width: 300px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            z-index: 50;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.15));
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 10px;
             letter-spacing: 0.5px;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
         }
 
-        .description-text {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-            letter-spacing: 0.3px;
+        .card-content {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.5;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
-        /* Menu de usuário */
+        .card-subtitle {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* ================================
+           BOTÃO HOYO PLAY
+        ================================ */
+        .hoyoplay-button-container {
+            position: fixed;
+            right: 150px;
+            bottom: 50px;
+            z-index: 60;
+        }
+
+        .hoyoplay-button {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #FFD700;
+            border: 2px solid #000000;
+            border-radius: 35px;
+            padding: 14px 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hoyoplay-button:hover {
+            transform: translateY(-5px);
+            background: #000000;
+            border-color: #FFD700;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+        }
+
+        .hoyoplay-icon {
+            font-size: 22px;
+            color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .hoyoplay-button:hover .hoyoplay-icon {
+            color: #FFD700;
+            transform: scale(1.2) rotate(8deg);
+        }
+
+        .hoyoplay-text {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: #000000;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+        }
+
+        .hoyoplay-button:hover .hoyoplay-text {
+            color: #FFD700;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* ================================
+           MENU DE USUÁRIO
+        ================================ */
         .user-menu {
             position: absolute;
             top: 25px;
@@ -172,18 +941,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.95);
             font-size: 17px;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .user-icon:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.2);
             transform: scale(1.05);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
         }
 
         .dropdown-menu {
@@ -191,15 +962,16 @@
             top: 48px;
             right: 0;
             width: 170px;
-            background: rgba(15, 15, 25, 0.85);
+            background: rgba(15, 15, 25, 0.9);
             backdrop-filter: blur(15px);
             border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 10px 0;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .dropdown-menu.active {
@@ -213,22 +985,19 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.95);
             text-decoration: none;
             transition: all 0.2s ease;
             font-size: 12px;
         }
 
         .dropdown-item:hover {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.12);
         }
 
-        .dropdown-item i {
-            width: 14px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Ícones sociais no lado direito */
+        /* ================================
+           ÍCONES SOCIAIS
+        ================================ */
         .right-sidebar {
             position: fixed;
             right: 25px;
@@ -247,158 +1016,65 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             font-size: 17px;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .social-icon:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.25);
             transform: translateX(-5px) scale(1.1);
-            border-color: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
-        /* Card no canto inferior esquerdo */
-        .bottom-left-card {
+        /* ================================
+           INDICADOR DE DISPOSITIVO
+        ================================ */
+        .device-indicator {
             position: fixed;
-            left: 90px;
-            bottom: 25px;
-            width: 300px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            z-index: 50;
-            transition: all 0.3s ease;
-        }
-
-        .bottom-left-card:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .card-image-placeholder {
-            width: 100%;
-            height: 160px;
-            background: linear-gradient(45deg, rgba(255,255,255,0.08), rgba(255,255,255,0.12));
-            border-radius: 8px;
-            margin-bottom: 12px;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-size: 0.75rem;
             display: flex;
+            gap: 8px;
             align-items: center;
-            justify-content: center;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 12px;
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            overflow: hidden;
+            pointer-events: none;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            animation: pulse 2s infinite;
+            backdrop-filter: blur(5px);
         }
 
-        .card-image-placeholder img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .card-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 10px;
-            letter-spacing: 0.5px;
-        }
-
-        .card-content {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.5;
-        }
-
-        .card-subtitle {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 5px;
-            font-style: italic;
-        }
-
-        /* Botão Hoyo Play - PRETO NO HOVER E PULSE VISÍVEL */
-        .hoyoplay-button-container {
-            position: fixed;
-            right: 150px;
-            bottom: 50px;
-            z-index: 60;
-        }
-
-        .hoyoplay-button {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #FFD700; /* Amarelo */
-            border: 2px solid #000000;
-            border-radius: 35px;
-            padding: 14px 28px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            animation: visiblePulse 3s infinite;
-        }
-
-        /* BOTÃO PRETO NO HOVER */
-        .hoyoplay-button:hover {
-            transform: translateY(-5px);
-            background: #000000; /* Preto no hover */
-            border-color: #FFD700; /* Borda amarela no hover */
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
-        }
-
-        .hoyoplay-icon {
-            font-size: 22px;
-            color: #000000; /* Ícone preto normalmente */
-            transition: all 0.3s ease;
-        }
-
-        /* ÍCONE AMARELO NO HOVER (quando o botão fica preto) */
-        .hoyoplay-button:hover .hoyoplay-icon {
-            color: #FFD700; /* Ícone amarelo no hover */
-            transform: scale(1.2) rotate(8deg);
-        }
-
-        .hoyoplay-text {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 18px;
-            color: #000000; /* Texto preto normalmente */
-            letter-spacing: 1.5px;
-            transition: all 0.3s ease;
-        }
-
-        /* TEXTO AMARELO NO HOVER (quando o botão fica preto) */
-        .hoyoplay-button:hover .hoyoplay-text {
-            color: #FFD700; /* Texto amarelo no hover */
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        /* Animação de pulso VISÍVEL que combina com amarelo */
-        @keyframes visiblePulse {
-            0%, 100% {
-                box-shadow: 
-                    0 5px 20px rgba(0, 0, 0, 0.3),
-                    0 0 0 0 rgba(255, 215, 0, 0.6); /* Amarelo forte */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+                border-color: rgba(34, 197, 94, 0.3);
             }
-            50% {
-                box-shadow: 
-                    0 5px 20px rgba(0, 0, 0, 0.3),
-                    0 0 0 12px rgba(255, 215, 0, 0); /* Pulsação maior */
+            70% {
+                box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+                border-color: rgba(34, 197, 94, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+                border-color: rgba(34, 197, 94, 0.3);
             }
         }
 
-        /* Animações */
+        /* ================================
+           ANIMAÇÕES
+        ================================ */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -410,32 +1086,37 @@
             }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
         .fade-in {
             animation: fadeInUp 1s ease-out forwards;
-        }
-
-        .float-animation {
-            animation: float 5s ease-in-out infinite;
         }
 
         .delay-1 { animation-delay: 0.2s; opacity: 0; }
         .delay-2 { animation-delay: 0.4s; opacity: 0; }
         .delay-3 { animation-delay: 0.6s; opacity: 0; }
-        .delay-4 { animation-delay: 0.8s; opacity: 0; }
-        .delay-5 { animation-delay: 1.0s; opacity: 0; }
-        .delay-6 { animation-delay: 1.2s; opacity: 0; }
-        .delay-7 { animation-delay: 1.4s; opacity: 0; }
 
-        /* Responsividade */
+        /* ================================
+           RESPONSIVIDADE
+        ================================ */
         @media (max-width: 1024px) {
+            .main-content {
+                padding: 30px;
+            }
+            
             .hoyoplay-button-container {
                 right: 100px;
                 bottom: 45px;
+            }
+            
+            .info-card {
+                left: 90px;
+            }
+            
+            .apps-sidebar {
+                width: 350px;
+            }
+            
+            .apps-grid-icons {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
@@ -450,42 +1131,25 @@
                 flex-direction: row;
                 padding: 15px;
                 border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.15);
                 align-items: center;
                 justify-content: center;
-                gap: 20px;
+                gap: 15px;
+                background: rgba(10, 10, 20, 0.4);
             }
             
             .logo-container {
                 margin: 0;
             }
             
-            .sidebar-back-icon {
-                width: 35px;
-                height: 35px;
-            }
-            
             .main-content {
-                padding: 30px;
+                padding: 20px;
                 padding-top: 20px;
                 max-width: 100%;
             }
             
-            .title-main {
-                font-size: 50px;
-            }
-            
-            .title-subtext {
-                font-size: 32px;
-            }
-            
-            .bottom-left-card {
-                position: relative;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                max-width: 300px;
-                margin: 30px 0 0 0;
+            .hub-title {
+                font-size: 36px;
             }
             
             .right-sidebar {
@@ -513,71 +1177,135 @@
                 justify-content: center;
             }
             
-            .hoyoplay-button {
-                padding: 12px 24px;
-                transform: none !important;
+            .info-card {
+                position: relative;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                max-width: 300px;
+                margin: 30px 0 0 0;
             }
             
-            .hoyoplay-button:hover {
-                transform: translateY(-5px) !important;
+            .apps-sidebar {
+                width: 100%;
+                left: -100%;
             }
             
-            .hoyoplay-text {
-                font-size: 16px;
-                letter-spacing: 1px;
+            .apps-sidebar.active {
+                left: 0;
             }
             
-            .hoyoplay-icon {
-                font-size: 20px;
+            .apps-grid-icons {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 15px;
+            }
+            
+            .app-page-content {
+                width: 98%;
+                height: 95vh;
+                border-radius: 20px;
+            }
+            
+            .app-page-header {
+                padding: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .app-page-header-left {
+                width: 100%;
+            }
+            
+            .app-page-title h1 {
+                font-size: 28px;
+            }
+            
+            .app-main-button-top {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            /* Ajuste para o ícone roxo em mobile */
+            .more-options-icon {
+                width: 52px;
+                height: 52px;
+            }
+            
+            .more-options-icon img {
+                width: 34px;
+                height: 34px;
+            }
+            
+            .sidebar-icon,
+            .more-options-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 18px;
             }
         }
 
         @media (max-width: 480px) {
-            .title-main {
-                font-size: 40px;
+            .hub-title {
+                font-size: 28px;
             }
             
-            .title-subtext {
-                font-size: 26px;
-            }
-            
-            .description-text {
-                font-size: 12px;
-            }
-            
-            .left-sidebar {
-                padding: 12px;
-                gap: 15px;
-            }
-            
-            .social-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-            }
-            
-            .bottom-left-card {
-                max-width: 280px;
-            }
-            
-            .sidebar-back-icon {
-                width: 32px;
-                height: 32px;
+            .hub-subtitle {
                 font-size: 14px;
             }
             
             .hoyoplay-button {
-                padding: 10px 20px;
-                border-radius: 30px;
+                padding: 12px 20px;
             }
             
             .hoyoplay-text {
-                font-size: 15px;
-                letter-spacing: 0.8px;
+                font-size: 16px;
             }
             
-            .hoyoplay-icon {
-                font-size: 18px;
+            .apps-grid-icons {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+            }
+            
+            .app-icon-only {
+                width: 55px;
+                height: 55px;
+            }
+            
+            .app-page-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .app-page-title h1 {
+                font-size: 24px;
+            }
+            
+            .app-main-button-top {
+                padding: 14px 25px;
+                font-size: 16px;
+            }
+            
+            /* Ajuste para o ícone roxo em telas muito pequenas */
+            .more-options-icon {
+                width: 48px;
+                height: 48px;
+            }
+            
+            .more-options-icon img {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .more-options-icon::after {
+                font-size: 9px;
+                bottom: -22px;
+            }
+            
+            .sidebar-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 16px;
             }
         }
     </style>
@@ -586,35 +1314,51 @@
     <!-- Imagem de fundo -->
     <div class="background-image"></div>
 
+    <!-- Indicador de Dispositivo -->
+    <div class="device-indicator" id="deviceIndicator">
+        <i class="fas fa-desktop"></i>
+        <span>Computador</span>
+    </div>
+
     <div class="app-container">
-        <!-- Sidebar esquerda limpa -->
+        <!-- Sidebar esquerda -->
         <div class="left-sidebar">
-            <div class="logo-container">
+            <!-- Logo -->
+            <div class="logo-container" onclick="showHome()">
                 <img src="z.png" alt="Logo">
             </div>
             
-            <!-- Ícone de voltar abaixo da logo -->
-            <a href="projetos.html" class="sidebar-back-icon fade-in delay-1" title="Voltar para Projetos">
-                <i class="fas fa-arrow-left"></i>
+            <!-- Ícone Home - AZUL -->
+            <div class="sidebar-icon home active" title="Início" onclick="showHome()">
+                <i class="fas fa-home"></i>
+            </div>
+            
+            <!-- Ícone Games - VERDE -->
+            <a href="game.html" target="_blank" class="sidebar-icon games" title="Games">
+                <i class="fas fa-gamepad"></i>
             </a>
+            
+            <!-- Ícone Projetos - LARANJA -->
+            <a href="projetos.html" target="_blank" class="sidebar-icon projects" title="Projetos">
+                <i class="fas fa-project-diagram"></i>
+            </a>
+            
+            <!-- Ícone Apps - ROXO COM IMAGEM PERSONALIZADA -->
+            <div class="more-options-icon" id="appsBtn" title="Todos os Apps">
+                <img src="ico.png" alt="Apps">
+            </div>
         </div>
 
         <!-- Conteúdo principal -->
         <div class="main-content">
-            <!-- Título no topo -->
-            <div class="title-section fade-in">
-                <div class="title-main">ZeroConnect</div>
-                <div class="title-subtext fade-in delay-1 float-animation">for the Night</div>
+            <div class="hub-header fade-in">
+                <h1 class="hub-title">ZeroConect</h1>
+                <p class="hub-subtitle">
+                    Seu hub central para todos os aplicativos. Acesse rapidamente seus apps favoritos.
+                </p>
             </div>
 
-            <!-- Descrição abaixo do título -->
-            <div class="description-section fade-in delay-2">
-                <div class="description-title">Plataforma Social Integrada</div>
-                <div class="description-text">
-                    Conecte-se com comunidades, compartilhe experiências e descubra conteúdo exclusivo. 
-                    Uma nova maneira de interagir e se envolver em ambientes digitais.
-                </div>
-            </div>
+           
         </div>
 
         <!-- Menu de usuário -->
@@ -638,41 +1382,43 @@
             </div>
         </div>
 
-        <!-- Ícones sociais no lado direito -->
+        <!-- Ícones sociais -->
         <div class="right-sidebar">
-            <!-- Instagram -->
             <a href="https://www.instagram.com/gustta_mastergg" target="_blank" class="social-icon fade-in delay-1">
                 <i class="fab fa-instagram"></i>
             </a>
-
-            <!-- Discord -->
-            <a href="https://discord.com/users/1366076126337962046 " target="_blank" class="social-icon fade-in delay-3">
+            <a href="https://discord.com/users/1366076126337962046" target="_blank" class="social-icon fade-in delay-2">
                 <i class="fab fa-discord"></i>
             </a>
-
-            <!-- YouTube -->
-            <a href="https://www.youtube.com/@VexoDanger" target="_blank" class="social-icon fade-in delay-4">
+            <a href="https://www.youtube.com/@VexoDanger" target="_blank" class="social-icon fade-in delay-3">
                 <i class="fab fa-youtube"></i>
             </a>
-
-            <!-- TikTok -->
-            <a href="https://www.tiktok.com/@gustta.rayray" target="_blank" class="social-icon fade-in delay-5">
+            <a href="https://www.tiktok.com/@gustta.rayray" target="_blank" class="social-icon fade-in delay-1">
                 <i class="fab fa-tiktok"></i>
             </a>
-
-            <!-- WhatsApp -->
-            <a href="https://wa.me/998488662" target="_blank" class="social-icon fade-in delay-6">
+            <a href="https://wa.me/998488662" target="_blank" class="social-icon fade-in delay-2">
                 <i class="fab fa-whatsapp"></i>
             </a>
-
-            <!-- GitHub -->
-            <a href="https://github.com/loirinhodid " target="_blank" class="social-icon fade-in delay-7">
+            <a href="https://github.com/loirinhodid" target="_blank" class="social-icon fade-in delay-3">
                 <i class="fab fa-github"></i>
             </a>
         </div>
 
-        <!-- Botão Hoyo Play - COM EFEITOS CORRIGIDOS -->
-        <div class="hoyoplay-button-container fade-in delay-4">
+        <!-- Card Informativo -->
+        <div class="info-card fade-in delay-2">
+            <div class="card-image">
+                <img src="https://preview.redd.it/pre-download-is-now-available-via-hoyoplay-pc-v0-jvu8j7o280ad1.png?width=1080&crop=smart&auto=webp&s=6ef94e166e07f806b718b0a27960eda2da2d182c" alt="Informações">
+            </div>
+            <div class="card-title">Dowload HoyoPlay</div>
+            <div class="card-content">
+                Acesse todos os Games favoritos da HoyoVerse em um só lugar. 
+                Clique no botão amarelo para ver a lista dos games disponíveis.
+            </div>
+            <div class="card-subtitle"> Hub <u>Não</u> <u>associado</u>  à Hoyoverse</div>
+        </div>
+
+        <!-- Botão Hoyo Play -->
+        <div class="hoyoplay-button-container fade-in delay-3">
             <a href="https://hoyoplay.hoyoverse.com" target="_blank" class="hoyoplay-button" title="Acessar HoyoPlay">
                 <div class="hoyoplay-icon">
                     <i class="fas fa-gamepad"></i>
@@ -680,31 +1426,306 @@
                 <div class="hoyoplay-text">HOYO PLAY</div>
             </a>
         </div>
+    </div>
 
-        <!-- Card no canto inferior esquerdo -->
-        <div class="bottom-left-card fade-in delay-3">
-            <div class="card-image-placeholder">
-                <!-- Imagem da HoyoPlay -->
-                <img src="https://preview.redd.it/pre-download-is-now-available-via-hoyoplay-pc-v0-jvu8j7o280ad1.png?width=1080&crop=smart&auto=webp&s=6ef94e166e07f806b718b0a27960eda2da2d182c" alt="HoyoPlay PC">
+    <!-- BARRA DE APPS - APENAS ÍCONES -->
+    <div class="apps-sidebar" id="appsSidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-apps"></i> Aplicativos</h3>
+            <div class="close-sidebar" id="closeSidebarBtn">
+                <i class="fas fa-times"></i>
             </div>
-            <div class="card-title">HoyoPlay download Disponível</div>
-            <div class="card-content">
-                A HoYoverse anunciou que o download para PC já está disponível através da plataforma HoyoPlay. 
-                Prepare-se para a nova atualização baixando os arquivos antecipadamente.
+        </div>
+        <div class="sidebar-content">
+            <div class="apps-grid-icons" id="appsGridIcons">
+                <!-- Ícones serão gerados pelo JavaScript -->
             </div>
-            <div class="card-subtitle">Fonte: HoYoverse Official</div>
+        </div>
+    </div>
+
+    <!-- PÁGINA INTERNA DO APP - SIMPLIFICADA -->
+    <div class="app-page" id="appPage">
+        <div class="app-page-content">
+            <!-- HEADER COM BOTÃO NO TOPO -->
+            <div class="app-page-header">
+                <div class="app-page-header-left">
+                    <div class="app-page-icon" id="pageIcon">
+                        <img src="" alt="App Icon">
+                    </div>
+                    <div class="app-page-title">
+                        <h1 id="pageTitle">Aplicativo</h1>
+                        <p id="pageSubtitle">Categoria</p>
+                    </div>
+                </div>
+                
+                <!-- BOTÃO PRINCIPAL NO TOPO -->
+                <button class="app-main-button-top" id="pageActionBtn">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span>Abrir</span>
+                </button>
+                
+                <!-- Botão fechar -->
+                <div class="close-page" id="closePageBtn">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            
+            <!-- CORPO COM IMAGEM -->
+            <div class="app-page-body">
+                <div class="app-page-background" id="pageBackground"></div>
+                <div class="app-page-main">
+                    <div class="app-category" id="pageCategory">
+                        Categoria
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
+        // DADOS COMPLETOS DE TODOS OS APPS
+        const appsData = {
+            'spotify': {
+                name: 'Spotify',
+                subtitle: 'Música e podcasts',
+                icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwDiicpDsawpNveT7Ota2-EC_vZbP8vneTbg&s',
+                background: 'https://images.unsplash.com/photo-1611339555312-e607c8352fd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+                category: 'Música',
+                protocol: 'spotify:',
+                url: 'https://open.spotify.com',
+                color: 'spotify'
+            },
+            'whatsapp': {
+                name: 'WhatsApp',
+                subtitle: 'Mensagens instantâneas',
+                icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2048px-WhatsApp.svg.png',
+                background: 'https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
+                category: 'Comunicação',
+                protocol: 'whatsapp://',
+                url: 'https://web.whatsapp.com',
+                color: 'whatsapp'
+            },
+            'netflix': {
+                name: 'Netflix',
+                subtitle: 'Filmes e séries',
+                icon: 'https://images.ctfassets.net/4cd45et68cgf/Rx83JoRDMkYNlMC9MKzcB/2b14d5a59fc3937afd3f03191e19502d/Netflix-Symbol.png?w=700&h=456',
+                background: 'https://images.unsplash.com/photo-1489599809516-9827b6d1cf13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+                category: 'Entretenimento',
+                protocol: null,
+                url: 'https://www.netflix.com',
+                color: 'netflix'
+            },
+            'youtube': {
+                name: 'YouTube',
+                subtitle: 'Vídeos e entretenimento',
+                icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/YouTube_play_button_square_%282013-2017%29.svg/2048px-YouTube_play_button_square_%282013-2017%29.svg.png',
+                background: 'https://images.unsplash.com/photo-1499364615650-ec38552f4f34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
+                category: 'Vídeo',
+                protocol: null,
+                url: 'https://www.youtube.com',
+                color: 'youtube'
+            },
+            'jw-org': {
+                name: 'JW.org',
+                subtitle: 'Site oficial',
+                icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQguRAJtdxxQjekZtb9y6NLF-tqsN5mXhM0AQ&s',
+                background: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
+                category: 'Religião',
+                protocol: null,
+                url: 'https://www.jw.org/pt',
+                color: 'jw'
+            },
+            'riot-client': {
+                name: 'Riot Games',
+                subtitle: 'Plataforma de jogos',
+                icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKnJaJcVfuAJc2YxBhBp4ujW956ygaVD0vaA&s',
+                background: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+                category: 'Jogos',
+                protocol: 'riotclient://',
+                url: 'https://riotgames.com',
+                color: 'riot'
+            },
+            'google-photos': {
+                name: 'Google Photos',
+                subtitle: 'Fotos e vídeos',
+                icon: 'https://www.oficinadanet.com.br/imagens/post_categoria/2671/google-photos.png',
+                background: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2067&q=80',
+                category: 'Fotos',
+                protocol: null,
+                url: 'https://photos.google.com',
+                color: 'google'
+            },
+            'vscode': {
+                name: 'VS Code',
+                subtitle: 'Editor de código',
+                icon: 'https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxj7kCzMIlSC20SNjaJf9GmG15ocnF.zbBRgxMSlB7Ejh6FbgNzxLvZOoW7N3ML56fn3m5Z4MO.M8pYrCFVKIhqM-&format=source',
+                background: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+                category: 'Desenvolvimento',
+                protocol: 'vscode://',
+                url: 'https://code.visualstudio.com',
+                color: 'vscode'
+            },
+            'github': {
+                name: 'GitHub',
+                subtitle: 'Repositórios de código',
+                icon: 'https://cdn.iconscout.com/icon/free/png-256/free-github-logo-icon-svg-download-png-8630395.png?f=webp',
+                background: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2076&q=80',
+                category: 'Desenvolvimento',
+                protocol: null,
+                url: 'https://github.com',
+                color: 'github'
+            },
+            'office365': {
+                name: 'Office 365',
+                subtitle: 'Produtividade',
+                icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Microsoft_365_%282022%29.svg/1862px-Microsoft_365_%282022%29.svg.png',
+                background: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+                category: 'Produtividade',
+                protocol: null,
+                url: 'https://www.office.com',
+                color: 'office'
+            },
+            'gmail': {
+                name: 'Gmail',
+                subtitle: 'Email do Google',
+                icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png',
+                background: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+                category: 'Email',
+                protocol: null,
+                url: 'https://mail.google.com',
+                color: 'gmail'
+            },
+            'epic-games': {
+                name: 'Epic Games',
+                subtitle: 'Loja de jogos',
+                icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Epic_Games_logo.svg/882px-Epic_Games_logo.svg.png',
+                background: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
+                category: 'Jogos',
+                protocol: 'com.epicgames.launcher://',
+                url: 'https://store.epicgames.com',
+                color: 'epic'
+            },
+            'discord': {
+                name: 'Discord',
+                subtitle: 'Comunicação',
+                icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQusefcTCWIdEVgzSSoMgGjozRdyu7kdV_BEw&s',
+                background: 'https://images.unsplash.com/photo-1633113215841-1ee4118b9b6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+                category: 'Comunicação',
+                protocol: 'discord://',
+                url: 'https://discord.com/app',
+                color: 'discord'
+            },
+            'drive': {
+                name: 'Google Drive',
+                subtitle: 'Armazenamento',
+                icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Google_Drive_icon_%282020%29.svg/1200px-Google_Drive_icon_%282020%29.svg.png',
+                background: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2065&q=80',
+                category: 'Armazenamento',
+                protocol: null,
+                url: 'https://drive.google.com',
+                color: 'drive'
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Elementos da interface
+            // Detectar dispositivo
+            const deviceIndicator = document.getElementById('deviceIndicator');
+            const isMobile = /android|iphone|ipad|ipod|mobile/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                deviceIndicator.innerHTML = '<i class="fas fa-mobile-alt"></i><span>Celular</span>';
+                deviceIndicator.style.background = 'rgba(59, 130, 246, 0.35)';
+            } else {
+                deviceIndicator.innerHTML = '<i class="fas fa-desktop"></i><span>Computador</span>';
+                deviceIndicator.style.background = 'rgba(34, 197, 94, 0.35)';
+            }
+
+            // Gerar ícones na sidebar
+            const appsGridIcons = document.getElementById('appsGridIcons');
+            
+            Object.entries(appsData).forEach(([appId, appData]) => {
+                const iconDiv = document.createElement('div');
+                iconDiv.className = 'app-icon-only';
+                iconDiv.dataset.app = appId;
+                iconDiv.dataset.title = appData.name;
+                
+                iconDiv.innerHTML = `
+                    <img src="${appData.icon}" alt="${appData.name}">
+                `;
+                
+                appsGridIcons.appendChild(iconDiv);
+            });
+
+            // Elementos da página do app
+            const appPage = document.getElementById('appPage');
+            const closePageBtn = document.getElementById('closePageBtn');
+            const pageIcon = document.getElementById('pageIcon');
+            const pageTitle = document.getElementById('pageTitle');
+            const pageSubtitle = document.getElementById('pageSubtitle');
+            const pageBackground = document.getElementById('pageBackground');
+            const pageCategory = document.getElementById('pageCategory');
+            const pageActionBtn = document.getElementById('pageActionBtn');
+
+            // Função para mostrar página do app
+            function showAppPage(appId) {
+                const app = appsData[appId];
+                if (!app) return;
+
+                // Preencher dados
+                pageIcon.querySelector('img').src = app.icon;
+                pageTitle.textContent = app.name;
+                pageSubtitle.textContent = app.subtitle;
+                pageBackground.style.backgroundImage = `url('${app.background}')`;
+                pageCategory.textContent = app.category;
+                
+                // Configurar botão
+                pageActionBtn.className = 'app-main-button-top';
+                if (app.color) {
+                    pageActionBtn.classList.add(app.color);
+                }
+                
+                pageActionBtn.onclick = function() {
+                    openApp(appId);
+                };
+
+                // Mostrar página
+                appPage.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                // Fechar sidebar
+                appsSidebar.classList.remove('active');
+            }
+
+            // Função para fechar página
+            function closeAppPage() {
+                appPage.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            // Função para abrir app
+            function openApp(appId) {
+                const app = appsData[appId];
+                if (!app) return;
+
+                if (!isMobile && app.protocol) {
+                    const openedProtocol = window.open(app.protocol, '_self');
+                    
+                    setTimeout(() => {
+                        if (!openedProtocol || openedProtocol.closed) {
+                            window.open(app.url, '_blank', 'noopener,noreferrer');
+                        }
+                    }, 500);
+                } else {
+                    window.open(app.url, '_blank', 'noopener,noreferrer');
+                }
+                
+                closeAppPage();
+            }
+
+            // Menu dropdown
             const userIcon = document.getElementById('userIcon');
             const dropdownMenu = document.getElementById('dropdownMenu');
-            const socialIcons = document.querySelectorAll('.social-icon');
-            const hoyoplayButton = document.querySelector('.hoyoplay-button');
             
-            // Menu dropdown do usuário
             userIcon.addEventListener('click', function(e) {
                 e.stopPropagation();
                 dropdownMenu.classList.toggle('active');
@@ -717,67 +1738,66 @@
             dropdownMenu.addEventListener('click', function(e) {
                 e.stopPropagation();
             });
+
+            // Barra de Apps
+            const appsBtn = document.getElementById('appsBtn');
+            const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+            const appsSidebar = document.getElementById('appsSidebar');
             
-            // Interação com ícones sociais
-            socialIcons.forEach(icon => {
-                icon.addEventListener('click', function(e) {
-                    // Efeito visual de clique
-                    this.style.transform = 'translateX(-5px) scale(1.05)';
-                    setTimeout(() => {
-                        this.style.transform = 'translateX(-5px) scale(1.1)';
-                    }, 100);
-                    
-                    const iconClass = this.querySelector('i').className;
-                    let platformName = '';
-                    
-                    // Identifica a plataforma corretamente
-                    if (iconClass.includes('fa-instagram')) platformName = 'Instagram';
-                    else if (iconClass.includes('fa-x-twitter')) platformName = 'X (Twitter)';
-                    else if (iconClass.includes('fa-discord')) platformName = 'Discord';
-                    else if (iconClass.includes('fa-youtube')) platformName = 'YouTube';
-                    else if (iconClass.includes('fa-tiktok')) platformName = 'TikTok';
-                    else if (iconClass.includes('fa-whatsapp')) platformName = 'WhatsApp';
-                    else if (iconClass.includes('fa-github')) platformName = 'GitHub';
-                    
-                    console.log(`Abrindo ${platformName}...`);
-                });
+            appsBtn.addEventListener('click', function() {
+                appsSidebar.classList.add('active');
             });
             
-            // Efeito especial no botão Hoyo Play
-            if (hoyoplayButton) {
-                hoyoplayButton.addEventListener('mouseenter', function() {
-                    this.style.animation = 'visiblePulse 1.5s infinite';
-                });
-                
-                hoyoplayButton.addEventListener('mouseleave', function() {
-                    this.style.animation = 'visiblePulse 3s infinite';
-                });
-                
-                // Efeito de clique
-                hoyoplayButton.addEventListener('click', function() {
-                    this.style.transform = 'translateY(-2px) scale(0.98)';
-                    setTimeout(() => {
-                        this.style.transform = 'translateY(-5px)';
-                    }, 150);
-                });
-            }
-            
-            // Efeito de digitação no título
-            const titleMain = document.querySelector('.title-main');
-            const originalText = titleMain.textContent;
-            titleMain.textContent = '';
-            
-            let charIndex = 0;
-            function typeWriter() {
-                if (charIndex < originalText.length) {
-                    titleMain.textContent += originalText.charAt(charIndex);
-                    charIndex++;
-                    setTimeout(typeWriter, 100);
+            closeSidebarBtn.addEventListener('click', function() {
+                appsSidebar.classList.remove('active');
+            });
+
+            // Fechar sidebar ao clicar fora
+            document.addEventListener('click', function(e) {
+                if (!appsSidebar.contains(e.target) && !appsBtn.contains(e.target)) {
+                    appsSidebar.classList.remove('active');
                 }
-            }
+            });
+
+            // Abrir páginas dos apps
+            document.querySelectorAll('.app-icon-only').forEach(icon => {
+                icon.addEventListener('click', function() {
+                    const appId = this.dataset.app;
+                    showAppPage(appId);
+                });
+            });
+
+            // Fechar página
+            closePageBtn.addEventListener('click', closeAppPage);
             
-            // Iniciar animação
-            setTimeout(typeWriter, 500);
+            appPage.addEventListener('click', function(e) {
+                if (e.target === appPage) {
+                    closeAppPage();
+                }
+            });
+
+            // Fechar com ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeAppPage();
+                }
+            });
+
+            // Mostrar home
+            window.showHome = function() {
+                closeAppPage();
+                appsSidebar.classList.remove('active');
+            };
+
+            // Animações
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in').forEach(el => {
+                    el.style.opacity = '1';
+                });
+            }, 100);
+
+            console.log('Rain Launcher carregado com sucesso!');
+            console.log('Apps disponíveis:', Object.keys(appsData).length);
         });
     </script>
 </body>
