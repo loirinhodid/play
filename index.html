@@ -7,15 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="z.png" type="image/png">
-   <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZeroConect</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="z.png" type="image/png">
     <style>
         /* ================================
            RESET E BASE
@@ -33,9 +24,29 @@
             overflow-x: hidden;
             position: relative;
             background: #0a0a14;
+            transition: background-image 0.5s ease;
         }
 
-        /* Imagem de fundo */
+        /* Sistema de fundo dinâmico - REMOVIDO FILTRO ESCURO */
+        body.app-page {
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        /* Overlay mais claro para melhor visibilidade */
+        .page-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 20, 0.65); /* Mais claro */
+            z-index: -2;
+        }
+
+        /* Imagem de fundo da página inicial (NÃO MEXER) */
         .background-image {
             position: fixed;
             top: 0;
@@ -68,7 +79,9 @@
             padding-top: 30px;
             z-index: 100;
             gap: 20px;
-            position: relative;
+            position: fixed;
+            left: 0;
+            top: 0;
         }
 
         .left-sidebar::before {
@@ -300,21 +313,19 @@
             text-shadow: 0 0 8px rgba(224, 170, 255, 0.7);
         }
 
-.more-options-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 14px;
-    filter: drop-shadow(0 0 12px rgba(199, 125, 255, 0.95));
-    transition: transform 0.3s ease, filter 0.3s ease;
-}
+        .more-options-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 14px;
+            filter: drop-shadow(0 0 12px rgba(199, 125, 255, 0.95));
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
 
-
-     .more-options-icon:hover img {
-    transform: scale(1.12) rotate(6deg);
-    filter: drop-shadow(0 0 18px rgba(199, 125, 255, 1));
-}
-
+        .more-options-icon:hover img {
+            transform: scale(1.12) rotate(6deg);
+            filter: drop-shadow(0 0 18px rgba(199, 125, 255, 1));
+        }
 
         @keyframes purplePulse {
             0%, 100% { 
@@ -327,6 +338,7 @@
 
         /* ================================
            CONTEÚDO PRINCIPAL
+           (MESMO PARA HOME E PARA PÁGINAS DE APPS)
         ================================ */
         .main-content {
             flex: 1;
@@ -335,6 +347,9 @@
             flex-direction: column;
             padding-top: 30px;
             max-width: 1000px;
+            margin-left: 80px; /* Compensa a sidebar fixa */
+            position: relative;
+            z-index: 2;
         }
 
         /* Header do Launcher */
@@ -361,6 +376,14 @@
             text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
         }
 
+        /* Subtítulo específico para páginas de apps */
+        .app-subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.95);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
         /* ================================
            BARRA DE APPS - APENAS ÍCONES
         ================================ */
@@ -373,7 +396,7 @@
             background: rgba(15, 15, 25, 0.98);
             backdrop-filter: blur(25px);
             border-right: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 1000;
+            z-index: 2000;
             transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             box-shadow: 10px 0 40px rgba(0, 0, 0, 0.5);
             display: flex;
@@ -503,300 +526,7 @@
             bottom: -35px;
         }
 
-        /* ================================
-           PÁGINA INTERNA DO APP - SIMPLIFICADA
-        ================================ */
-        .app-page {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(30px);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .app-page.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .app-page-content {
-            width: 90%;
-            height: 85vh;
-            max-width: 900px;
-            background: rgba(15, 15, 25, 0.95);
-            border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
-            transform: scale(0.95);
-            transition: transform 0.4s ease;
-        }
-
-        .app-page.active .app-page-content {
-            transform: scale(1);
-        }
-
-        /* HEADER COM BOTÃO NO TOPO */
-        .app-page-header {
-            padding: 25px 30px;
-            background: rgba(20, 20, 30, 0.9);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            position: relative;
-            z-index: 3;
-        }
-
-        .app-page-header-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex: 1;
-        }
-
-        .app-page-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px;
-            flex-shrink: 0;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .app-page-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 10px;
-            filter: brightness(1.1);
-        }
-
-        .app-page-title {
-            flex: 1;
-        }
-
-        .app-page-title h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 32px;
-            color: white;
-            margin-bottom: 5px;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .app-page-title p {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 500;
-            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        /* BOTÃO PRINCIPAL NO TOPO */
-        .app-main-button-top {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, #4a6de5, #6a8eff);
-            border: none;
-            border-radius: 40px;
-            padding: 15px 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            box-shadow: 0 8px 25px rgba(74, 109, 229, 0.4);
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 18px;
-            color: white;
-            letter-spacing: 1px;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .app-main-button-top:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(74, 109, 229, 0.6);
-            background: linear-gradient(135deg, #5a7dff, #7a9eff);
-        }
-
-        .app-main-button-top i {
-            font-size: 20px;
-        }
-
-        /* Cores específicas */
-        .app-main-button-top.spotify {
-            background: linear-gradient(135deg, #1DB954, #1ed760);
-            box-shadow: 0 8px 25px rgba(29, 185, 84, 0.4);
-        }
-
-        .app-main-button-top.spotify:hover {
-            background: linear-gradient(135deg, #2ed96a, #3ee97a);
-            box-shadow: 0 12px 35px rgba(29, 185, 84, 0.6);
-        }
-
-        .app-main-button-top.whatsapp {
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-        }
-
-        .app-main-button-top.whatsapp:hover {
-            background: linear-gradient(135deg, #35e376, #229c8e);
-            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
-        }
-
-        .app-main-button-top.youtube {
-            background: linear-gradient(135deg, #FF0000, #FF3333);
-            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
-        }
-
-        .app-main-button-top.youtube:hover {
-            background: linear-gradient(135deg, #ff1a1a, #ff4d4d);
-            box-shadow: 0 12px 35px rgba(255, 0, 0, 0.6);
-        }
-
-        .app-main-button-top.netflix {
-            background: linear-gradient(135deg, #E50914, #B81D24);
-            box-shadow: 0 8px 25px rgba(229, 9, 20, 0.4);
-        }
-
-        .app-main-button-top.netflix:hover {
-            background: linear-gradient(135deg, #f51924, #c82d34);
-            box-shadow: 0 12px 35px rgba(229, 9, 20, 0.6);
-        }
-
-        .app-main-button-top.jw {
-            background: linear-gradient(135deg, #9B1B30, #C41E3A);
-            box-shadow: 0 8px 25px rgba(155, 27, 48, 0.4);
-        }
-
-        .app-main-button-top.riot {
-            background: linear-gradient(135deg, #FF4654, #FF6B7A);
-            box-shadow: 0 8px 25px rgba(255, 70, 84, 0.4);
-        }
-
-        .app-main-button-top.google {
-            background: linear-gradient(135deg, #4285F4, #34A853);
-            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
-        }
-
-        .app-main-button-top.vscode {
-            background: linear-gradient(135deg, #007ACC, #0066B3);
-            box-shadow: 0 8px 25px rgba(0, 122, 204, 0.4);
-        }
-
-        .app-main-button-top.github {
-            background: linear-gradient(135deg, #333, #555);
-            box-shadow: 0 8px 25px rgba(51, 51, 51, 0.4);
-        }
-
-        .app-main-button-top.office {
-            background: linear-gradient(135deg, #D83B01, #F25022);
-            box-shadow: 0 8px 25px rgba(216, 59, 1, 0.4);
-        }
-
-        .app-main-button-top.gmail {
-            background: linear-gradient(135deg, #EA4335, #FBBC05);
-            box-shadow: 0 8px 25px rgba(234, 67, 53, 0.4);
-        }
-
-        .app-main-button-top.epic {
-            background: linear-gradient(135deg, #2A2A2A, #121212);
-            box-shadow: 0 8px 25px rgba(42, 42, 42, 0.4);
-        }
-
-        .app-main-button-top.discord {
-            background: linear-gradient(135deg, #5865F2, #7289DA);
-            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.4);
-        }
-
-        .app-main-button-top.drive {
-            background: linear-gradient(135deg, #4285F4, #34A853);
-            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
-        }
-
-        /* Botão fechar */
-        .close-page {
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .close-page:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: rotate(90deg);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-        }
-
-        /* CORPO COM IMAGEM DE FUNDO */
-        .app-page-body {
-            flex: 1;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .app-page-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.25;
-            z-index: 1;
-        }
-
-        /* Conteúdo minimalista */
-        .app-page-main {
-            position: relative;
-            z-index: 2;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .app-category {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-        }
+        /* BOTÃO PRINCIPAL DO APP REMOVIDO - SÓ TEMOS O BOTÃO INFERIOR DIREITO AGORA */
 
         /* ================================
            CARD INFORMATIVO
@@ -868,60 +598,197 @@
         }
 
         /* ================================
-           BOTÃO HOYO PLAY
+           BOTÃO INFERIOR (APENAS EM PÁGINAS DE APPS - NÃO APARECE NA HOME)
         ================================ */
-        .hoyoplay-button-container {
+        .bottom-button-container {
             position: fixed;
             right: 150px;
             bottom: 50px;
             z-index: 60;
         }
 
-        .hoyoplay-button {
+        .bottom-button {
             display: flex;
             align-items: center;
             gap: 12px;
-            background: #FFD700;
-            border: 2px solid #000000;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 35px;
             padding: 14px 28px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .hoyoplay-button:hover {
-            transform: translateY(-5px);
-            background: #000000;
-            border-color: #FFD700;
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
-        }
-
-        .hoyoplay-icon {
-            font-size: 22px;
-            color: #000000;
-            transition: all 0.3s ease;
-        }
-
-        .hoyoplay-button:hover .hoyoplay-icon {
-            color: #FFD700;
-            transform: scale(1.2) rotate(8deg);
-        }
-
-        .hoyoplay-text {
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
             font-size: 18px;
-            color: #000000;
             letter-spacing: 1.5px;
+            color: white;
+        }
+
+        .bottom-button:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .bottom-button-icon {
+            font-size: 22px;
             transition: all 0.3s ease;
         }
 
-        .hoyoplay-button:hover .hoyoplay-text {
-            color: #FFD700;
+        .bottom-button:hover .bottom-button-icon {
+            transform: scale(1.2) rotate(8deg);
+        }
+
+        .bottom-button-text {
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .bottom-button:hover .bottom-button-text {
             letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Estilos específicos para cada app - BOTÃO INFERIOR */
+        .bottom-button.riot {
+            background: linear-gradient(135deg, #FF4654, #FF6B7A);
+            border-color: rgba(255, 70, 84, 0.5);
+        }
+        .bottom-button.riot:hover {
+            background: linear-gradient(135deg, #ff5a66, #ff7f8a);
+            border-color: rgba(255, 70, 84, 0.7);
+            box-shadow: 0 8px 25px rgba(255, 70, 84, 0.5);
+        }
+        
+        .bottom-button.spotify {
+            background: linear-gradient(135deg, #1DB954, #1ed760);
+            border-color: rgba(29, 185, 84, 0.5);
+        }
+        .bottom-button.spotify:hover {
+            background: linear-gradient(135deg, #2ed96a, #3ee97a);
+            border-color: rgba(29, 185, 84, 0.7);
+            box-shadow: 0 8px 25px rgba(29, 185, 84, 0.5);
+        }
+        
+        .bottom-button.whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-color: rgba(37, 211, 102, 0.5);
+        }
+        .bottom-button.whatsapp:hover {
+            background: linear-gradient(135deg, #35e376, #229c8e);
+            border-color: rgba(37, 211, 102, 0.7);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+        }
+        
+        .bottom-button.youtube {
+            background: linear-gradient(135deg, #FF0000, #FF3333);
+            border-color: rgba(255, 0, 0, 0.5);
+        }
+        .bottom-button.youtube:hover {
+            background: linear-gradient(135deg, #ff1a1a, #ff4d4d);
+            border-color: rgba(255, 0, 0, 0.7);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
+        }
+        
+        .bottom-button.netflix {
+            background: linear-gradient(135deg, #E50914, #B81D24);
+            border-color: rgba(229, 9, 20, 0.5);
+        }
+        .bottom-button.netflix:hover {
+            background: linear-gradient(135deg, #f51924, #c82d34);
+            border-color: rgba(229, 9, 20, 0.7);
+            box-shadow: 0 8px 25px rgba(229, 9, 20, 0.5);
+        }
+        
+        .bottom-button.jw {
+            background: linear-gradient(135deg, #9B1B30, #C41E3A);
+            border-color: rgba(155, 27, 48, 0.5);
+        }
+        .bottom-button.jw:hover {
+            background: linear-gradient(135deg, #ab2b40, #d42e4a);
+            border-color: rgba(155, 27, 48, 0.7);
+            box-shadow: 0 8px 25px rgba(155, 27, 48, 0.5);
+        }
+        
+        .bottom-button.google {
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            border-color: rgba(66, 133, 244, 0.5);
+        }
+        .bottom-button.google:hover {
+            background: linear-gradient(135deg, #5295ff, #44b863);
+            border-color: rgba(66, 133, 244, 0.7);
+            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.5);
+        }
+        
+        .bottom-button.vscode {
+            background: linear-gradient(135deg, #007ACC, #0066B3);
+            border-color: rgba(0, 122, 204, 0.5);
+        }
+        .bottom-button.vscode:hover {
+            background: linear-gradient(135deg, #108adc, #0076c3);
+            border-color: rgba(0, 122, 204, 0.7);
+            box-shadow: 0 8px 25px rgba(0, 122, 204, 0.5);
+        }
+        
+        .bottom-button.github {
+            background: linear-gradient(135deg, #333, #555);
+            border-color: rgba(51, 51, 51, 0.5);
+        }
+        .bottom-button.github:hover {
+            background: linear-gradient(135deg, #444, #666);
+            border-color: rgba(51, 51, 51, 0.7);
+            box-shadow: 0 8px 25px rgba(51, 51, 51, 0.5);
+        }
+        
+        .bottom-button.office {
+            background: linear-gradient(135deg, #D83B01, #F25022);
+            border-color: rgba(216, 59, 1, 0.5);
+        }
+        .bottom-button.office:hover {
+            background: linear-gradient(135deg, #e84b11, #ff6032);
+            border-color: rgba(216, 59, 1, 0.7);
+            box-shadow: 0 8px 25px rgba(216, 59, 1, 0.5);
+        }
+        
+        .bottom-button.gmail {
+            background: linear-gradient(135deg, #EA4335, #FBBC05);
+            border-color: rgba(234, 67, 53, 0.5);
+        }
+        .bottom-button.gmail:hover {
+            background: linear-gradient(135deg, #fa5345, #ffcc15);
+            border-color: rgba(234, 67, 53, 0.7);
+            box-shadow: 0 8px 25px rgba(234, 67, 53, 0.5);
+        }
+        
+        .bottom-button.epic {
+            background: linear-gradient(135deg, #2A2A2A, #121212);
+            border-color: rgba(42, 42, 42, 0.5);
+        }
+        .bottom-button.epic:hover {
+            background: linear-gradient(135deg, #3a3a3a, #222222);
+            border-color: rgba(42, 42, 42, 0.7);
+            box-shadow: 0 8px 25px rgba(42, 42, 42, 0.5);
+        }
+        
+        .bottom-button.discord {
+            background: linear-gradient(135deg, #5865F2, #7289DA);
+            border-color: rgba(88, 101, 242, 0.5);
+        }
+        .bottom-button.discord:hover {
+            background: linear-gradient(135deg, #6875ff, #8299ea);
+            border-color: rgba(88, 101, 242, 0.7);
+            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.5);
+        }
+        
+        .bottom-button.drive {
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            border-color: rgba(66, 133, 244, 0.5);
+        }
+        .bottom-button.drive:hover {
+            background: linear-gradient(135deg, #5295ff, #44b863);
+            border-color: rgba(66, 133, 244, 0.7);
+            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.5);
         }
 
         /* ================================
@@ -1100,9 +967,10 @@
         @media (max-width: 1024px) {
             .main-content {
                 padding: 30px;
+                margin-left: 80px;
             }
             
-            .hoyoplay-button-container {
+            .bottom-button-container {
                 right: 100px;
                 bottom: 45px;
             }
@@ -1136,6 +1004,8 @@
                 justify-content: center;
                 gap: 15px;
                 background: rgba(10, 10, 20, 0.4);
+                position: relative;
+                height: auto;
             }
             
             .logo-container {
@@ -1146,6 +1016,8 @@
                 padding: 20px;
                 padding-top: 20px;
                 max-width: 100%;
+                margin-left: 0;
+                margin-top: 80px; /* Compensa a sidebar em mobile */
             }
             
             .hub-title {
@@ -1168,7 +1040,7 @@
                 transform: translateY(-5px) scale(1.1);
             }
             
-            .hoyoplay-button-container {
+            .bottom-button-container {
                 position: relative;
                 right: 0;
                 bottom: 0;
@@ -1199,34 +1071,12 @@
                 grid-template-columns: repeat(4, 1fr);
                 gap: 15px;
             }
-            
-            .app-page-content {
-                width: 98%;
-                height: 95vh;
-                border-radius: 20px;
+           
+            .bottom-button {
+                padding: 12px 24px;
+                font-size: 16px;
             }
             
-            .app-page-header {
-                padding: 20px;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            
-            .app-page-header-left {
-                width: 100%;
-            }
-            
-            .app-page-title h1 {
-                font-size: 28px;
-            }
-            
-            .app-main-button-top {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            /* Ajuste para o ícone roxo em mobile */
             .more-options-icon {
                 width: 52px;
                 height: 52px;
@@ -1254,12 +1104,13 @@
                 font-size: 14px;
             }
             
-            .hoyoplay-button {
-                padding: 12px 20px;
+            .app-subtitle {
+                font-size: 14px;
             }
             
-            .hoyoplay-text {
-                font-size: 16px;
+            .bottom-button {
+                padding: 10px 20px;
+                font-size: 14px;
             }
             
             .apps-grid-icons {
@@ -1271,22 +1122,7 @@
                 width: 55px;
                 height: 55px;
             }
-            
-            .app-page-icon {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .app-page-title h1 {
-                font-size: 24px;
-            }
-            
-            .app-main-button-top {
-                padding: 14px 25px;
-                font-size: 16px;
-            }
-            
-            /* Ajuste para o ícone roxo em telas muito pequenas */
+         
             .more-options-icon {
                 width: 48px;
                 height: 48px;
@@ -1310,9 +1146,12 @@
         }
     </style>
 </head>
-<body>
-    <!-- Imagem de fundo -->
-    <div class="background-image"></div>
+<body id="pageBody">
+    <!-- Imagem de fundo da página inicial (NÃO MEXER) -->
+    <div class="background-image" id="backgroundImage"></div>
+
+    <!-- Overlay mais claro para melhor visibilidade -->
+    <div class="page-overlay"></div>
 
     <!-- Indicador de Dispositivo -->
     <div class="device-indicator" id="deviceIndicator">
@@ -1324,14 +1163,14 @@
         <!-- Sidebar esquerda -->
         <div class="left-sidebar">
             <!-- Logo -->
-            <div class="logo-container" onclick="showHome()">
+            <div class="logo-container" onclick="window.location.href = 'index.html'">
                 <img src="z.png" alt="Logo">
             </div>
             
-            <!-- Ícone Home - AZUL -->
-            <div class="sidebar-icon home active" title="Início" onclick="showHome()">
+            <!-- Ícone Home - AZUL (AGORA FUNCIONA PARA VOLTAR À PÁGINA INICIAL) -->
+            <a href="index.html" class="sidebar-icon home" title="Início">
                 <i class="fas fa-home"></i>
-            </div>
+            </a>
             
             <!-- Ícone Games - VERDE -->
             <a href="game.html" target="_blank" class="sidebar-icon games" title="Games">
@@ -1352,13 +1191,16 @@
         <!-- Conteúdo principal -->
         <div class="main-content">
             <div class="hub-header fade-in">
-                <h1 class="hub-title">ZeroConect</h1>
-                <p class="hub-subtitle">
+                <h1 class="hub-title" id="pageTitle">ZeroConect</h1>
+                <p class="hub-subtitle" id="pageSubtitle">
                     Seu hub central para todos os aplicativos. Acesse rapidamente seus apps favoritos.
                 </p>
+                <!-- Subtítulo do app (apenas em páginas de apps) -->
+                <p class="app-subtitle" id="appSpecificSubtitle" style="display: none;"></p>
             </div>
 
-           
+            <!-- BOTÃO DO APP REMOVIDO - SÓ TEMOS O BOTÃO INFERIOR DIREITO AGORA -->
+            <div id="appButtonContainer" style="display: none;"></div>
         </div>
 
         <!-- Menu de usuário -->
@@ -1405,26 +1247,21 @@
         </div>
 
         <!-- Card Informativo -->
-        <div class="info-card fade-in delay-2">
-            <div class="card-image">
-                <img src="https://preview.redd.it/pre-download-is-now-available-via-hoyoplay-pc-v0-jvu8j7o280ad1.png?width=1080&crop=smart&auto=webp&s=6ef94e166e07f806b718b0a27960eda2da2d182c" alt="Informações">
+        <div class="info-card fade-in delay-2" id="infoCard">
+            <div class="card-image" id="cardImage">
+                <!-- Imagem será preenchida pelo JavaScript -->
             </div>
-            <div class="card-title">Dowload HoyoPlay</div>
-            <div class="card-content">
+            <div class="card-title" id="cardTitle">Dowload HoyoPlay</div>
+            <div class="card-content" id="cardContent">
                 Acesse todos os Games favoritos da HoyoVerse em um só lugar. 
                 Clique no botão amarelo para ver a lista dos games disponíveis.
             </div>
-            <div class="card-subtitle"> Hub <u>Não</u> <u>associado</u>  à Hoyoverse</div>
+            <div class="card-subtitle" id="cardSubtitle">Hub <u>Não</u> <u>associado</u> à Hoyoverse</div>
         </div>
 
-        <!-- Botão Hoyo Play -->
-        <div class="hoyoplay-button-container fade-in delay-3">
-            <a href="https://hoyoplay.hoyoverse.com" target="_blank" class="hoyoplay-button" title="Acessar HoyoPlay">
-                <div class="hoyoplay-icon">
-                    <i class="fas fa-gamepad"></i>
-                </div>
-                <div class="hoyoplay-text">HOYO PLAY</div>
-            </a>
+        <!-- Botão Inferior (APENAS EM PÁGINAS DE APPS - NÃO APARECE NA HOME) -->
+        <div class="bottom-button-container fade-in delay-3" id="bottomButtonContainer">
+            <!-- Conteúdo será preenchido pelo JavaScript -->
         </div>
     </div>
 
@@ -1443,54 +1280,35 @@
         </div>
     </div>
 
-    <!-- PÁGINA INTERNA DO APP - SIMPLIFICADA -->
-    <div class="app-page" id="appPage">
-        <div class="app-page-content">
-            <!-- HEADER COM BOTÃO NO TOPO -->
-            <div class="app-page-header">
-                <div class="app-page-header-left">
-                    <div class="app-page-icon" id="pageIcon">
-                        <img src="" alt="App Icon">
-                    </div>
-                    <div class="app-page-title">
-                        <h1 id="pageTitle">Aplicativo</h1>
-                        <p id="pageSubtitle">Categoria</p>
-                    </div>
-                </div>
-                
-                <!-- BOTÃO PRINCIPAL NO TOPO -->
-                <button class="app-main-button-top" id="pageActionBtn">
-                    <i class="fas fa-external-link-alt"></i>
-                    <span>Abrir</span>
-                </button>
-                
-                <!-- Botão fechar -->
-                <div class="close-page" id="closePageBtn">
-                    <i class="fas fa-times"></i>
-                </div>
-            </div>
-            
-            <!-- CORPO COM IMAGEM -->
-            <div class="app-page-body">
-                <div class="app-page-background" id="pageBackground"></div>
-                <div class="app-page-main">
-                    <div class="app-category" id="pageCategory">
-                        Categoria
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // DADOS COMPLETOS DE TODOS OS APPS
+        // DADOS COMPLETOS DE TODOS OS APPS - COM IMAGENS ATUALIZADAS
         const appsData = {
+            'riot-client': {
+                name: 'Riot Games',
+                subtitle: 'Plataforma de jogos',
+                description: 'Jogue League of Legends, Valorant e outros jogos da Riot Games.',
+                icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKnJaJcVfuAJc2YxBhBp4ujW956ygaVD0vaA&s',
+                background: 'intro.mp4', // VÍDEO DA RIOT GAMES
+                interfaceImage: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
+                cardImage: 'https://www.riotgames.com/darkroom/1440/3842e6d651ce3662ac121876e11a4f75:72320612f65ada7ccd0b2c7af52cd4c1/rg-article-header-riot-client-game-hubs.png',
+                cardTitle: 'Riot Client',
+                cardContent: 'Launcher oficial para jogos da Riot: League of Legends, Valorant, Teamfight Tactics e mais.',
+                cardSubtitle: 'Plataforma de jogos online',
+                protocol: 'riotclient://',
+                url: 'https://riotgames.com',
+                color: 'riot'
+            },
             'spotify': {
                 name: 'Spotify',
                 subtitle: 'Música e podcasts',
+                description: 'Ouça suas músicas favoritas, descubra novos artistas e acompanhe podcasts.',
                 icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwDiicpDsawpNveT7Ota2-EC_vZbP8vneTbg&s',
-                background: 'https://images.unsplash.com/photo-1611339555312-e607c8352fd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                category: 'Música',
+                background: 'https://t2.tudocdn.net/650666?w=1920&h=1080',
+                interfaceImage: 'https://open.spotifycdn.com/cdn/images/download-page-image-mac.fec937cc.png',
+                cardImage: 'https://open.spotifycdn.com/cdn/images/download-page-image-mac.fec937cc.png',
+                cardTitle: 'Spotify - Música',
+                cardContent: 'Milhões de músicas e podcasts. Descubra novos artistas e crie playlists personalizadas.',
+                cardSubtitle: 'Streaming musical premium',
                 protocol: 'spotify:',
                 url: 'https://open.spotify.com',
                 color: 'spotify'
@@ -1498,9 +1316,14 @@
             'whatsapp': {
                 name: 'WhatsApp',
                 subtitle: 'Mensagens instantâneas',
+                description: 'Converse com amigos e familiares através de mensagens, chamadas de voz e vídeo.',
                 icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2048px-WhatsApp.svg.png',
-                background: 'https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
-                category: 'Comunicação',
+                background: 'https://www.notebookcheck.info/fileadmin/Notebooks/News/_nc4/whatsapp-chat-with-us-human-support-feature.jpg',
+                interfaceImage: 'https://store-images.s-microsoft.com/image/apps.20598.13655054093851568.8c441c31-1039-4c48-a9c3-6736d0e41810.dc96540d-2822-441e-89c4-180fa98d2624',
+                cardImage: 'https://store-images.s-microsoft.com/image/apps.20598.13655054093851568.8c441c31-1039-4c48-a9c3-6736d0e41810.dc96540d-2822-441e-89c4-180fa98d2624',
+                cardTitle: 'WhatsApp Web',
+                cardContent: 'Mensagens, chamadas e vídeo chamadas gratuitas. Conecte-se com quem você ama.',
+                cardSubtitle: 'Comunicação instantânea',
                 protocol: 'whatsapp://',
                 url: 'https://web.whatsapp.com',
                 color: 'whatsapp'
@@ -1508,9 +1331,14 @@
             'netflix': {
                 name: 'Netflix',
                 subtitle: 'Filmes e séries',
+                description: 'Assista a filmes, séries e documentários em streaming ilimitado.',
                 icon: 'https://images.ctfassets.net/4cd45et68cgf/Rx83JoRDMkYNlMC9MKzcB/2b14d5a59fc3937afd3f03191e19502d/Netflix-Symbol.png?w=700&h=456',
-                background: 'https://images.unsplash.com/photo-1489599809516-9827b6d1cf13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                category: 'Entretenimento',
+                background: 'https://about.netflix.com/images/meta/netflix-symbol-black.png',
+                interfaceImage: 'https://observatoriodocinema.com.br/wp-content/uploads/2020/02/Netflix-ok.jpg',
+                cardImage: 'https://observatoriodocinema.com.br/wp-content/uploads/2020/02/Netflix-ok.jpg',
+                cardTitle: 'Netflix - Streaming',
+                cardContent: 'Catálogo com milhares de filmes, séries originais e documentários exclusivos.',
+                cardSubtitle: 'Entretenimento sem limites',
                 protocol: null,
                 url: 'https://www.netflix.com',
                 color: 'netflix'
@@ -1518,49 +1346,59 @@
             'youtube': {
                 name: 'YouTube',
                 subtitle: 'Vídeos e entretenimento',
+                description: 'Assista a vídeos, músicas, tutoriais e muito mais na maior plataforma de vídeos do mundo.',
                 icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/YouTube_play_button_square_%282013-2017%29.svg/2048px-YouTube_play_button_square_%282013-2017%29.svg.png',
-                background: 'https://images.unsplash.com/photo-1499364615650-ec38552f4f34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
-                category: 'Vídeo',
+                background: 'https://t.ctcdn.com.br/gbO3hsV5DRUS3MYFIL0-vgDJtYk=/640x360/smart/i533291.png',
+                interfaceImage: 'https://thumbs.dreamstime.com/b/youtube-interface-layout-video-player-easy-layers-to-edit-k-resolution-192048950.jpg',
+                cardImage: 'https://thumbs.dreamstime.com/b/youtube-interface-layout-video-player-easy-layers-to-edit-k-resolution-192048950.jpg',
+                cardTitle: 'YouTube - Vídeos',
+                cardContent: 'Plataforma de vídeos com conteúdo diversificado: tutoriais, músicas, vlogs e entretenimento.',
+                cardSubtitle: 'O maior site de vídeos',
                 protocol: null,
                 url: 'https://www.youtube.com',
                 color: 'youtube'
             },
             'jw-org': {
                 name: 'JW.org',
-                subtitle: 'Site oficial',
+                subtitle: 'Site oficial das Testemunhas de Jeová',
+                description: 'Acesse a Bíblia, publicações cristãs e recursos para estudo bíblico.',
                 icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQguRAJtdxxQjekZtb9y6NLF-tqsN5mXhM0AQ&s',
-                background: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
-                category: 'Religião',
+                background: 'https://organicsnewsbrasil.com.br/wp-content/uploads/2015/11/008-Floresta-8.jpg',
+                interfaceImage: 'https://cms-imgp.jw-cdn.org/img/p/702022209/univ/art/702022209_univ_lsr_lg.jpg',
+                cardImage: 'https://cms-imgp.jw-cdn.org/img/p/702022209/univ/art/702022209_univ_lsr_lg.jpg',
+                cardTitle: 'JW.org - Biblioteca',
+                cardContent: 'Bíblia online, publicações cristãs e recursos para estudo bíblico em centenas de idiomas.',
+                cardSubtitle: 'Recursos bíblicos gratuitos',
                 protocol: null,
                 url: 'https://www.jw.org/pt',
                 color: 'jw'
             },
-            'riot-client': {
-                name: 'Riot Games',
-                subtitle: 'Plataforma de jogos',
-                icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKnJaJcVfuAJc2YxBhBp4ujW956ygaVD0vaA&s',
-                background: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                category: 'Jogos',
-                protocol: 'riotclient://',
-                url: 'https://riotgames.com',
-                color: 'riot'
-            },
             'google-photos': {
                 name: 'Google Photos',
                 subtitle: 'Fotos e vídeos',
+                description: 'Armazene, organize e compartilhe suas fotos e vídeos com segurança.',
                 icon: 'https://www.oficinadanet.com.br/imagens/post_categoria/2671/google-photos.png',
-                background: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2067&q=80',
-                category: 'Fotos',
+                background: 'https://wallpapers.com/images/hd/google-background-kd1prf7szhbx3ezp.jpg',
+                interfaceImage: 'https://www.gstatic.com/marketing-cms/assets/images/36/23/47dddd854226b909ff1b63797abd/pp-photos-explore-google-photos-pt-br.png',
+                cardImage: 'https://www.gstatic.com/marketing-cms/assets/images/36/23/47dddd854226b909ff1b63797abd/pp-photos-explore-google-photos-pt-br.png',
+                cardTitle: 'Google Photos',
+                cardContent: 'Armazenamento ilimitado de fotos e vídeos com backup automático e organização inteligente.',
+                cardSubtitle: 'Backup de memórias',
                 protocol: null,
                 url: 'https://photos.google.com',
                 color: 'google'
             },
             'vscode': {
-                name: 'VS Code',
+                name: 'Visual Studio Code',
                 subtitle: 'Editor de código',
+                description: 'Editor de código fonte leve e poderoso com suporte para várias linguagens.',
                 icon: 'https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxj7kCzMIlSC20SNjaJf9GmG15ocnF.zbBRgxMSlB7Ejh6FbgNzxLvZOoW7N3ML56fn3m5Z4MO.M8pYrCFVKIhqM-&format=source',
-                background: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                category: 'Desenvolvimento',
+                background: 'https://i.pinimg.com/736x/88/41/f5/8841f574b1859a9e4a469ef2b0492dac.jpg',
+                interfaceImage: 'https://images.unsplash.com/photo-1607706189992-eae578626c86?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dnMlMjBjb2RlfGVufDB8fDB8fHww',
+                cardImage: 'https://images.unsplash.com/photo-1607706189992-eae578626c86?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dnMlMjBjb2RlfGVufDB8fDB8fHww',
+                cardTitle: 'VS Code - Desenvolvimento',
+                cardContent: 'Editor de código open-source da Microsoft com extensões, debugging e controle Git integrado.',
+                cardSubtitle: 'IDE para desenvolvedores',
                 protocol: 'vscode://',
                 url: 'https://code.visualstudio.com',
                 color: 'vscode'
@@ -1568,9 +1406,14 @@
             'github': {
                 name: 'GitHub',
                 subtitle: 'Repositórios de código',
+                description: 'Plataforma de desenvolvimento colaborativo e controle de versão com Git.',
                 icon: 'https://cdn.iconscout.com/icon/free/png-256/free-github-logo-icon-svg-download-png-8630395.png?f=webp',
-                background: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2076&q=80',
-                category: 'Desenvolvimento',
+                background: 'https://www.adrenaline.com.br/wp-content/uploads/2025/08/Github-Perde-CEO-Microsoft-CoreAI.jpg',
+                interfaceImage: 'https://graphite.com/images/content/guides/github-desktop/1699470210-github_desktop.png',
+                cardImage: 'https://graphite.com/images/content/guides/github-desktop/1699470210-github_desktop.png',
+                cardTitle: 'GitHub - Repositórios',
+                cardContent: 'Plataforma de hospedagem de código para controle de versão e colaboração em projetos.',
+                cardSubtitle: 'Colaboração em código',
                 protocol: null,
                 url: 'https://github.com',
                 color: 'github'
@@ -1578,9 +1421,14 @@
             'office365': {
                 name: 'Office 365',
                 subtitle: 'Produtividade',
+                description: 'Acesse Word, Excel, PowerPoint e outras ferramentas de produtividade da Microsoft.',
                 icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Microsoft_365_%282022%29.svg/1862px-Microsoft_365_%282022%29.svg.png',
-                background: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                category: 'Produtividade',
+                background: 'https://support.microsoft.com/images/pt-br/a800a3f9-f73c-46b0-9b08-774017436549',
+                interfaceImage: 'https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/Feature-M365-Harmony-Homepage-Tablet-Icons:VP1-539x349',
+                cardImage: 'https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/Feature-M365-Harmony-Homepage-Tablet-Icons:VP1-539x349',
+                cardTitle: 'Office 365',
+                cardContent: 'Suíte completa de produtividade: Word, Excel, PowerPoint, Outlook e ferramentas colaborativas.',
+                cardSubtitle: 'Produtividade em nuvem',
                 protocol: null,
                 url: 'https://www.office.com',
                 color: 'office'
@@ -1588,9 +1436,14 @@
             'gmail': {
                 name: 'Gmail',
                 subtitle: 'Email do Google',
+                description: 'Serviço de email gratuito do Google com armazenamento generoso e filtros inteligentes.',
                 icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png',
-                background: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                category: 'Email',
+                background: 'https://t2.tudocdn.net/706824?w=1920',
+                interfaceImage: 'https://gdm-catalog-fmapi-prod.imgix.net/ProductScreenshot/f3338a2e-87a1-4da6-9e2e-3be43c272291.png?w=600&h=450&fit=fill&fill=blur&auto=format&q=50',
+                cardImage: 'https://gdm-catalog-fmapi-prod.imgix.net/ProductScreenshot/f3338a2e-87a1-4da6-9e2e-3be43c272291.png?w=600&h=450&fit=fill&fill=blur&auto=format&q=50',
+                cardTitle: 'Gmail - Email',
+                cardContent: 'Serviço de email com 15GB de armazenamento gratuito, filtro de spam e integração com Google Workspace.',
+                cardSubtitle: 'Email inteligente',
                 protocol: null,
                 url: 'https://mail.google.com',
                 color: 'gmail'
@@ -1598,9 +1451,14 @@
             'epic-games': {
                 name: 'Epic Games',
                 subtitle: 'Loja de jogos',
+                description: 'Loja de jogos digitais com títulos gratuitos semanais e grandes lançamentos.',
                 icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Epic_Games_logo.svg/882px-Epic_Games_logo.svg.png',
-                background: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
-                category: 'Jogos',
+                background: 'https://cdn2.unrealengine.com/egs-twitchchannel-generic-offline-1920x1080-9d2573f00465.png',
+                interfaceImage: 'https://cdn2.unrealengine.com/en-pegi-egs-fb-social-1920x1080-1920x1080-7a87c6d2748b.jpg',
+                cardImage: 'https://cdn2.unrealengine.com/en-pegi-egs-fb-social-1920x1080-1920x1080-7a87c6d2748b.jpg',
+                cardTitle: 'Epic Games Store',
+                cardContent: 'Loja digital com jogos gratuitos semanais, descontos exclusivos e lançamentos AAA.',
+                cardSubtitle: 'Jogos gratuitos semanais',
                 protocol: 'com.epicgames.launcher://',
                 url: 'https://store.epicgames.com',
                 color: 'epic'
@@ -1608,19 +1466,29 @@
             'discord': {
                 name: 'Discord',
                 subtitle: 'Comunicação',
+                description: 'Plataforma de comunicação por voz, vídeo e texto para comunidades e jogadores.',
                 icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQusefcTCWIdEVgzSSoMgGjozRdyu7kdV_BEw&s',
-                background: 'https://images.unsplash.com/photo-1633113215841-1ee4118b9b6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-                category: 'Comunicação',
+                background: 'https://cdn1.epicgames.com/offer/5f3c898b2a3244af99e9900e015717f8/DiscordNitro_2560x14402_2560x1440-8d2a9bce01ef4ddd882351a2a92271d5',
+                interfaceImage: 'https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/665643dd8c7ac752237b5cef_Discord-OG-1200x630.jpg',
+                cardImage: 'https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/665643dd8c7ac752237b5cef_Discord-OG-1200x630.jpg',
+                cardTitle: 'Discord - Comunidades',
+                cardContent: 'Plataforma de comunicação para gamers e comunidades com salas de voz, texto e streaming.',
+                cardSubtitle: 'Conecte-se com comunidades',
                 protocol: 'discord://',
                 url: 'https://discord.com/app',
                 color: 'discord'
             },
             'drive': {
                 name: 'Google Drive',
-                subtitle: 'Armazenamento',
+                subtitle: 'Armazenamento em nuvem',
+                description: 'Armazenamento em nuvem seguro para arquivos, documentos, fotos e vídeos.',
                 icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Google_Drive_icon_%282020%29.svg/1200px-Google_Drive_icon_%282020%29.svg.png',
-                background: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2065&q=80',
-                category: 'Armazenamento',
+                background: 'https://www.computerworld.com/wp-content/uploads/2025/12/1714087-0-76917800-1764846207-google-drive-cheat-sheet-16x9-1.jpg?quality=50&strip=all',
+                interfaceImage: 'https://developers.google.com/static/workspace/drive/images/create-new-2015.png?hl=pt-br',
+                cardImage: 'https://static0.anpoimages.com/wordpress/wp-content/uploads/2024/04/google-drive-new-search-bar-anim.gif',
+                cardTitle: 'Google Drive',
+                cardContent: 'Armazenamento em nuvem com 15GB gratuitos, sincronização de arquivos e colaboração em tempo real.',
+                cardSubtitle: 'Armazenamento na nuvem',
                 protocol: null,
                 url: 'https://drive.google.com',
                 color: 'drive'
@@ -1640,66 +1508,203 @@
                 deviceIndicator.style.background = 'rgba(34, 197, 94, 0.35)';
             }
 
-            // Gerar ícones na sidebar
-            const appsGridIcons = document.getElementById('appsGridIcons');
+            // Verificar se estamos em uma página de app
+            const urlParams = new URLSearchParams(window.location.search);
+            const appId = urlParams.get('app');
             
-            Object.entries(appsData).forEach(([appId, appData]) => {
-                const iconDiv = document.createElement('div');
-                iconDiv.className = 'app-icon-only';
-                iconDiv.dataset.app = appId;
-                iconDiv.dataset.title = appData.name;
-                
-                iconDiv.innerHTML = `
-                    <img src="${appData.icon}" alt="${appData.name}">
-                `;
-                
-                appsGridIcons.appendChild(iconDiv);
-            });
-
-            // Elementos da página do app
-            const appPage = document.getElementById('appPage');
-            const closePageBtn = document.getElementById('closePageBtn');
-            const pageIcon = document.getElementById('pageIcon');
-            const pageTitle = document.getElementById('pageTitle');
-            const pageSubtitle = document.getElementById('pageSubtitle');
-            const pageBackground = document.getElementById('pageBackground');
-            const pageCategory = document.getElementById('pageCategory');
-            const pageActionBtn = document.getElementById('pageActionBtn');
-
-            // Função para mostrar página do app
-            function showAppPage(appId) {
-                const app = appsData[appId];
-                if (!app) return;
-
-                // Preencher dados
-                pageIcon.querySelector('img').src = app.icon;
-                pageTitle.textContent = app.name;
-                pageSubtitle.textContent = app.subtitle;
-                pageBackground.style.backgroundImage = `url('${app.background}')`;
-                pageCategory.textContent = app.category;
-                
-                // Configurar botão
-                pageActionBtn.className = 'app-main-button-top';
-                if (app.color) {
-                    pageActionBtn.classList.add(app.color);
-                }
-                
-                pageActionBtn.onclick = function() {
-                    openApp(appId);
-                };
-
-                // Mostrar página
-                appPage.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                
-                // Fechar sidebar
-                appsSidebar.classList.remove('active');
+            if (appId && appsData[appId]) {
+                // É uma página de app - configurar a página
+                setupAppPage(appId);
+            } else {
+                // É a página inicial - mostrar tudo normal
+                setupHomePage();
             }
 
-            // Função para fechar página
-            function closeAppPage() {
-                appPage.classList.remove('active');
-                document.body.style.overflow = 'auto';
+            // Função para configurar página inicial
+            function setupHomePage() {
+                // Esconder background-image específico (porque já temos no HTML)
+                document.getElementById('backgroundImage').style.display = 'block';
+                
+                // Gerar ícones na sidebar (MANTENDO A ORDEM ANTERIOR - RIOT GAMES PRIMEIRO)
+                const appsGridIcons = document.getElementById('appsGridIcons');
+                
+                // Criar array na ordem correta (Riot Games primeiro)
+                const appsInOrder = [
+                    'riot-client',
+                    'spotify',
+                    'whatsapp',
+                    'netflix',
+                    'youtube',
+                    'jw-org',
+                    'google-photos',
+                    'vscode',
+                    'github',
+                    'office365',
+                    'gmail',
+                    'epic-games',
+                    'discord',
+                    'drive'
+                ];
+                
+                appsInOrder.forEach(appId => {
+                    const appData = appsData[appId];
+                    if (!appData) return;
+                    
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = 'app-icon-only';
+                    iconDiv.dataset.app = appId;
+                    iconDiv.dataset.title = appData.name;
+                    
+                    iconDiv.innerHTML = `
+                        <img src="${appData.icon}" alt="${appData.name}">
+                    `;
+                    
+                    // Criar link para a página do app
+                    iconDiv.addEventListener('click', function() {
+                        window.location.href = `?app=${appId}`;
+                    });
+                    
+                    appsGridIcons.appendChild(iconDiv);
+                });
+
+                // Configurar elementos da home
+                document.getElementById('pageTitle').textContent = 'ZeroConect';
+                document.getElementById('pageSubtitle').textContent = 'Seu hub central para todos os aplicativos. Acesse rapidamente seus apps favoritos.';
+                document.getElementById('appSpecificSubtitle').style.display = 'none';
+                document.getElementById('appButtonContainer').style.display = 'none';
+                
+                // Configurar card informativo (HoyoPlay na home)
+                document.getElementById('cardImage').innerHTML = `
+                    <img src="https://preview.redd.it/pre-download-is-now-available-via-hoyoplay-pc-v0-jvu8j7o280ad1.png?width=1080&crop=smart&auto=webp&s=6ef94e166e07f806b718b0a27960eda2da2d182c" alt="HoyoPlay">
+                `;
+                document.getElementById('cardTitle').textContent = 'Dowload HoyoPlay';
+                document.getElementById('cardContent').textContent = 'Acesse todos os Games favoritos da HoyoVerse em um só lugar. Clique no botão amarelo para ver a lista dos games disponíveis.';
+                document.getElementById('cardSubtitle').innerHTML = 'Hub <u>Não</u> <u>associado</u> à Hoyoverse';
+                
+                // BOTÃO INFERIOR NÃO APARECE NA PÁGINA INICIAL (removido o Hoyo Play)
+                document.getElementById('bottomButtonContainer').innerHTML = '';
+                
+                // Remover classe de app page do body
+                document.body.classList.remove('app-page');
+            }
+
+            // Função para configurar página do app
+            function setupAppPage(appId) {
+                const app = appsData[appId];
+                if (!app) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // Esconder a imagem de fundo da página inicial
+                document.getElementById('backgroundImage').style.display = 'none';
+                
+                // Configurar a página com dados do app
+                document.getElementById('pageTitle').textContent = app.name;
+                document.getElementById('pageSubtitle').textContent = 'Aplicativo disponível no ZeroConect';
+                
+                // Mostrar subtítulo específico do app
+                const appSubtitle = document.getElementById('appSpecificSubtitle');
+                appSubtitle.textContent = app.subtitle;
+                appSubtitle.style.display = 'block';
+                
+                // BOTÃO DO APP REMOVIDO - SÓ TEMOS O BOTÃO INFERIOR DIREITO
+                document.getElementById('appButtonContainer').style.display = 'none';
+                
+                // Configurar fundo do body - AGORA MAIS VISÍVEL
+                document.body.classList.add('app-page');
+                
+                // Verificar se é o vídeo da Riot Games
+                if (appId === 'riot-client' && app.background === 'intro.mp4') {
+                    // Criar elemento de vídeo para a Riot Games
+                    const videoElement = document.createElement('video');
+                    videoElement.id = 'appBackgroundVideo';
+                    videoElement.src = 'intro.mp4';
+                    videoElement.autoplay = true;
+                    videoElement.muted = true;
+                    videoElement.loop = true;
+                    videoElement.style.position = 'fixed';
+                    videoElement.style.top = '0';
+                    videoElement.style.left = '0';
+                    videoElement.style.width = '100%';
+                    videoElement.style.height = '100%';
+                    videoElement.style.objectFit = 'cover';
+                    videoElement.style.zIndex = '-3';
+                    document.body.appendChild(videoElement);
+                } else {
+                    // Para outros apps, usar imagem de fundo
+                    document.body.style.backgroundImage = `url('${app.background}')`;
+                }
+                
+                // Configurar card informativo (do app específico) - IMAGEM DIFERENTE
+                document.getElementById('cardImage').innerHTML = `
+                    <img src="${app.cardImage}" alt="${app.name}">
+                `;
+                document.getElementById('cardTitle').textContent = app.cardTitle || app.name;
+                document.getElementById('cardContent').textContent = app.cardContent || app.description;
+                document.getElementById('cardSubtitle').textContent = app.cardSubtitle || '';
+                
+                // BOTÃO INFERIOR APARECE EM PÁGINAS DE APPS (agora com a cor do app)
+                document.getElementById('bottomButtonContainer').innerHTML = `
+                    <a href="#" class="bottom-button ${app.color}" id="bottomAppButton" title="Abrir ${app.name}">
+                        <div class="bottom-button-icon">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                        <div class="bottom-button-text">ABRIR APP</div>
+                    </a>
+                `;
+                
+                // Adicionar evento ao botão inferior
+                document.getElementById('bottomAppButton').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openApp(appId);
+                });
+                
+                // Atualizar título da página
+                document.title = `${app.name} - ZeroConect`;
+                
+                // Gerar ícones na sidebar (links para outros apps) - MANTENDO A ORDEM ANTERIOR
+                const appsGridIcons = document.getElementById('appsGridIcons');
+                appsGridIcons.innerHTML = '';
+                
+                // Criar array na ordem correta (Riot Games primeiro)
+                const appsInOrder = [
+                    'riot-client',
+                    'spotify',
+                    'whatsapp',
+                    'netflix',
+                    'youtube',
+                    'jw-org',
+                    'google-photos',
+                    'vscode',
+                    'github',
+                    'office365',
+                    'gmail',
+                    'epic-games',
+                    'discord',
+                    'drive'
+                ];
+                
+                appsInOrder.forEach(otherAppId => {
+                    const appData = appsData[otherAppId];
+                    if (!appData) return;
+                    
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = 'app-icon-only';
+                    iconDiv.dataset.app = otherAppId;
+                    iconDiv.dataset.title = appData.name;
+                    
+                    iconDiv.innerHTML = `
+                        <img src="${appData.icon}" alt="${appData.name}">
+                    `;
+                    
+                    // Criar link para a página do outro app
+                    iconDiv.addEventListener('click', function() {
+                        window.location.href = `?app=${otherAppId}`;
+                    });
+                    
+                    appsGridIcons.appendChild(iconDiv);
+                });
             }
 
             // Função para abrir app
@@ -1718,8 +1723,6 @@
                 } else {
                     window.open(app.url, '_blank', 'noopener,noreferrer');
                 }
-                
-                closeAppPage();
             }
 
             // Menu dropdown
@@ -1759,36 +1762,6 @@
                 }
             });
 
-            // Abrir páginas dos apps
-            document.querySelectorAll('.app-icon-only').forEach(icon => {
-                icon.addEventListener('click', function() {
-                    const appId = this.dataset.app;
-                    showAppPage(appId);
-                });
-            });
-
-            // Fechar página
-            closePageBtn.addEventListener('click', closeAppPage);
-            
-            appPage.addEventListener('click', function(e) {
-                if (e.target === appPage) {
-                    closeAppPage();
-                }
-            });
-
-            // Fechar com ESC
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeAppPage();
-                }
-            });
-
-            // Mostrar home
-            window.showHome = function() {
-                closeAppPage();
-                appsSidebar.classList.remove('active');
-            };
-
             // Animações
             setTimeout(() => {
                 document.querySelectorAll('.fade-in').forEach(el => {
@@ -1796,8 +1769,8 @@
                 });
             }, 100);
 
-            console.log('Rain Launcher carregado com sucesso!');
-            console.log('Apps disponíveis:', Object.keys(appsData).length);
+            console.log('ZeroConect carregado com sucesso!');
+            console.log('App atual:', appId || 'Página Inicial');
         });
     </script>
 </body>
