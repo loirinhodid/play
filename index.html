@@ -42,7 +42,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 10, 20, 0.65); /* Mais claro */
+            background: rgba(10, 10, 20, 0.65);
             z-index: -2;
         }
 
@@ -181,7 +181,15 @@
             box-shadow: 0 0 20px rgba(74, 109, 229, 0.4);
         }
 
-        /* Ícone Home - Azul mais visível */
+        /* Botão Home - APENAS NAS PÁGINAS INTERNAS */
+        body.app-page .sidebar-icon.home {
+            display: flex !important;
+        }
+
+        body:not(.app-page) .sidebar-icon.home {
+            display: none !important;
+        }
+
         .sidebar-icon.home {
             background: rgba(59, 130, 246, 0.3);
             border-color: rgba(59, 130, 246, 0.5);
@@ -192,21 +200,23 @@
             box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
             border-color: rgba(59, 130, 246, 0.6);
         }
-        
 
-    
+        .sidebar-icon.home.active {
+            background: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
 
         /* Ícone Games - Verde mais visível */
         .sidebar-icon.games {
             background: rgba(34, 197, 94, 0.3);
             border-color: rgba(34, 197, 94, 0.5);
-                .sidebar-icon.home.active {
-            background: rgba(59, 130, 246, 0.5);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-        }
         }
 
-      
+        .sidebar-icon.games:hover {
+            background: rgba(34, 197, 94, 0.4);
+            box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
+            border-color: rgba(34, 197, 94, 0.6);
+        }
 
         /* Ícone Projetos - Laranja mais visível */
         .sidebar-icon.projects {
@@ -218,6 +228,18 @@
             background: rgba(249, 115, 22, 0.4);
             box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
             border-color: rgba(249, 115, 22, 0.6);
+        }
+
+        /* Ícone Phanteon - Roxo */
+        .sidebar-icon.phanteon {
+            background: rgba(138, 43, 226, 0.3);
+            border-color: rgba(138, 43, 226, 0.5);
+        }
+
+        .sidebar-icon.phanteon:hover {
+            background: rgba(138, 43, 226, 0.4);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.3);
+            border-color: rgba(138, 43, 226, 0.6);
         }
 
         /* Tooltips para todos os ícones */
@@ -247,8 +269,11 @@
             bottom: -30px;
         }
 
-        /* Ícone Mais Opções - MAIOR E MAIS VISÍVEL */
+        /* Ícone Mais Opções - MOVIDO PARA POSIÇÃO INFERIOR */
         .more-options-icon {
+            position: fixed;
+            left: 20px;
+            bottom: 30px;
             width: 56px;
             height: 56px;
             border-radius: 16px;
@@ -257,13 +282,13 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
             background: rgba(157, 78, 221, 0.3);
             border: 1px solid rgba(157, 78, 221, 0.5);
             animation: purplePulse 2s infinite;
             overflow: hidden;
             padding: 0;
             box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
+            z-index: 150;
         }
 
         .more-options-icon::before {
@@ -335,8 +360,23 @@
         }
 
         /* ================================
+           BOTÃO ABAIXO DA SIDEBAR - REMOVIDO
+        ================================ */
+        .sidebar-toggle-bottom {
+            display: none !important;
+        }
+
+        @keyframes bottomPulse {
+            0%, 100% { 
+                box-shadow: 0 4px 12px rgba(157, 78, 221, 0.3);
+            }
+            50% { 
+                box-shadow: 0 4px 20px rgba(157, 78, 221, 0.6), 0 0 15px rgba(199, 125, 255, 0.4);
+            }
+        }
+
+        /* ================================
            CONTEÚDO PRINCIPAL
-           (MESMO PARA HOME E PARA PÁGINAS DE APPS)
         ================================ */
         .main-content {
             flex: 1;
@@ -345,7 +385,7 @@
             flex-direction: column;
             padding-top: 30px;
             max-width: 1000px;
-            margin-left: 80px; /* Compensa a sidebar fixa */
+            margin-left: 80px;
             position: relative;
             z-index: 2;
         }
@@ -450,8 +490,92 @@
             padding: 25px;
             overflow-y: auto;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             background: rgba(10, 10, 20, 0.5);
+        }
+
+        /* BOTÕES GAME E PROJETOS NA SIDEBAR - MENORES */
+        .sidebar-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .sidebar-app-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 75px;
+            height: 75px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .sidebar-app-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .sidebar-app-button.games {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(21, 128, 61, 0.4));
+            border-color: rgba(34, 197, 94, 0.5);
+        }
+
+        .sidebar-app-button.games:hover {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.4), rgba(21, 128, 61, 0.5));
+            border-color: rgba(34, 197, 94, 0.7);
+        }
+
+        .sidebar-app-button.projects {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(194, 65, 12, 0.4));
+            border-color: rgba(249, 115, 22, 0.5);
+        }
+
+        .sidebar-app-button.projects:hover {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.4), rgba(194, 65, 12, 0.5));
+            border-color: rgba(249, 115, 22, 0.7);
+        }
+
+        .sidebar-app-button i {
+            font-size: 22px;
+            margin-bottom: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-app-button:hover i {
+            transform: scale(1.2);
+        }
+
+        .sidebar-app-button span {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        /* Ícone Phanteon */
+        .sidebar-app-button.phanteon {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(75, 0, 130, 0.4));
+            border-color: rgba(138, 43, 226, 0.5);
+        }
+
+        .sidebar-app-button.phanteon:hover {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.4), rgba(75, 0, 130, 0.5));
+            border-color: rgba(138, 43, 226, 0.7);
         }
 
         /* GRID DE ÍCONES APENAS */
@@ -463,11 +587,11 @@
             max-width: 300px;
         }
 
-        /* ÍCONES APENAS */
+        /* ÍCONES APENAS - TAMANHO REDUZIDO */
         .app-icon-only {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -490,8 +614,8 @@
         }
 
         .app-icon-only img {
-            width: 70%;
-            height: 70%;
+            width: 60%;
+            height: 60%;
             object-fit: contain;
             border-radius: 8px;
             filter: brightness(1.1);
@@ -959,41 +1083,36 @@
 
         /* ================================
            BOTÃO HOYO PLAY (APENAS NA PÁGINA INICIAL)
-           POSICIONADO INFERIOR DIREITO - MEIO TERMO
         ================================ */
-
-        /* Container principal - APARECE APENAS NA HOME */
         .hoyoplay-button-container.isolated-hoyo {
             position: fixed;
-            right: 180px; /* Meio termo - não muito no canto, não muito no meio */
-            bottom: 70px; /* Posicionado mais acima do fundo */
-            z-index: 60; /* Mesmo z-index dos outros botões */
+            right: 180px;
+            bottom: 70px;
+            z-index: 60;
             animation: fadeInUp 1s ease 0.3s forwards;
             opacity: 0;
-            display: block; /* Visível por padrão na home */
+            display: block;
         }
 
-        /* Esconder o botão HoyoPlay nas páginas de app */
         body.app-page .hoyoplay-button-container.isolated-hoyo {
             display: none !important;
         }
 
-        /* Botão HoyoPlay - ESTILO MODIFICADO */
         .hoyoplay-button.hoyo-unique {
             display: flex;
             align-items: center;
             gap: 12px;
-            background: #FFD700; /* Amarelo vibrante */
+            background: #FFD700;
             border: 2px solid #FFD700;
-            border-radius: 35px; /* Mais arredondado */
-            padding: 14px 28px; /* Tamanho padrão dos botões */
+            border-radius: 35px;
+            padding: 14px 28px;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             text-decoration: none;
             box-shadow: 0 6px 20px rgba(255, 215, 0, 0.35);
             font-family: 'Orbitron', sans-serif;
-            font-weight: 800; /* Mais pesado */
-            font-size: 18px; /* Tamanho padrão */
+            font-weight: 800;
+            font-size: 18px;
             letter-spacing: 1.8px;
             color: #000000;
             text-shadow: 0 1px 3px rgba(255, 255, 255, 0.4);
@@ -1001,7 +1120,6 @@
             overflow: hidden;
         }
 
-        /* Efeito hover - muda para preto com detalhes amarelos */
         .hoyoplay-button.hoyo-unique:hover {
             background: #000000;
             color: #FFD700;
@@ -1011,7 +1129,6 @@
                         0 0 0 3px rgba(255, 215, 0, 0.2);
         }
 
-        /* Efeito de brilho no hover */
         .hoyoplay-button.hoyo-unique::before {
             content: '';
             position: absolute;
@@ -1033,7 +1150,6 @@
             left: 100%;
         }
 
-        /* Ícone */
         .hoyoplay-icon {
             font-size: 22px;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -1048,7 +1164,6 @@
             filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.7));
         }
 
-        /* Texto */
         .hoyoplay-text {
             font-weight: 900;
             transition: all 0.3s ease;
@@ -1061,7 +1176,6 @@
             text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
         }
 
-        /* Efeito de pulso mais suave */
         @keyframes hoyoPulse {
             0%, 100% {
                 box-shadow: 0 6px 20px rgba(255, 215, 0, 0.35),
@@ -1079,7 +1193,6 @@
             animation: hoyoPulse 3s infinite;
         }
 
-        /* Efeito de brilho ao redor */
         .hoyoplay-button.hoyo-unique::after {
             content: '';
             position: absolute;
@@ -1105,13 +1218,10 @@
            REGRA ESPECÍFICA PARA GARANTIR QUE O BOTÃO INFERIOR
            (DOS APPS) NÃO APAREÇA NA HOME
         ================================ */
-
-        /* Na home (não tem classe .app-page), esconder o bottom-button-container */
         body:not(.app-page) .bottom-button-container {
             display: none !important;
         }
 
-        /* Nas páginas de app (tem classe .app-page), mostrar o bottom-button-container */
         body.app-page .bottom-button-container {
             display: block;
         }
@@ -1145,6 +1255,21 @@
             
             .apps-grid-icons {
                 grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .sidebar-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .sidebar-app-button {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .sidebar-toggle-bottom {
+                left: 20px;
+                bottom: 25px;
             }
             
             .hoyoplay-button.hoyo-unique {
@@ -1182,7 +1307,7 @@
                 padding-top: 20px;
                 max-width: 100%;
                 margin-left: 0;
-                margin-top: 80px; /* Compensa a sidebar em mobile */
+                margin-top: 80px;
             }
             
             .hub-title {
@@ -1259,7 +1384,14 @@
                 font-size: 18px;
             }
             
-            /* POSICIONAMENTO MOBILE PARA HOYO PLAY */
+            .sidebar-toggle-bottom {
+                left: 15px;
+                bottom: 20px;
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            
             .hoyoplay-button-container.isolated-hoyo {
                 position: relative;
                 right: 0;
@@ -1331,6 +1463,31 @@
                 font-size: 16px;
             }
             
+            .sidebar-buttons {
+                margin-bottom: 15px;
+            }
+            
+            .sidebar-app-button {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .sidebar-app-button i {
+                font-size: 24px;
+            }
+            
+            .sidebar-app-button span {
+                font-size: 11px;
+            }
+            
+            .sidebar-toggle-bottom {
+                left: 10px;
+                bottom: 15px;
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+            
             .hoyoplay-button.hoyo-unique {
                 font-size: 15px;
                 padding: 11px 22px;
@@ -1378,6 +1535,11 @@
         <span>Computador</span>
     </div>
 
+    <!-- Botão abaixo da sidebar -->
+    <div class="sidebar-toggle-bottom" id="sidebarToggleBottom" title="Abrir Apps">
+        <i class="fas fa-arrow-right"></i>
+    </div>
+
     <div class="app-container">
         <!-- Sidebar esquerda -->
         <div class="left-sidebar">
@@ -1385,16 +1547,16 @@
             <div class="logo-container" onclick="window.location.href = 'index.html'">
                 <img src="z.png" alt="Logo">
             </div>
- 
             
-            <!-- Ícone Games - VERDE -->
-            <a href="https://knox45.github.io/hub/game.html" target="_blank" class="sidebar-icon games" title="Games">
-                <i class="fas fa-gamepad"></i>
+            <!-- Ícone Home (APENAS NAS PÁGINAS INTERNAS) -->
+            <a href="index.html" class="sidebar-icon home" title="Home" style="display: none;">
+                <i class="fas fa-home"></i>
             </a>
             
-            <!-- Ícone Projetos - LARANJA -->
-            <a href="https://knox45.github.io/hub/projetos.html" target="_blank" class="sidebar-icon projects" title="Projetos">
-                <i class="fas fa-project-diagram"></i>
+            <!-- Ícone Games - VERDE -->
+            <!-- Ícone Phanteon -->
+            <a href="https://loirinhodid.github.io/phanteon" target="_blank" class="sidebar-icon phanteon" title="Phanteon">
+                <img src="https://preview.redd.it/zenless-zone-zero-icon-v0-9ss6qz6tuwx81.png?auto=webp&s=a1ae22c3c24df4db08c9c540313d59f60776957e" alt="Phanteon" style="width: 100%; height: 100%; object-fit: contain; border-radius: 10px;">
             </a>
             
             <!-- Ícone Apps - ROXO COM IMAGEM PERSONALIZADA -->
@@ -1479,7 +1641,7 @@
             <!-- Conteúdo será preenchido pelo JavaScript -->
         </div>
 
-        <!-- BOTÃO HOYO PLAY (APENAS NA PÁGINA INICIAL) - POSICIONADO INFERIOR DIREITO -->
+        <!-- BOTÃO HOYO PLAY (APENAS NA PÁGINA INICIAL) -->
         <div class="hoyoplay-button-container isolated-hoyo fade-in delay-3">
             <a href="https://hoyoplay.hoyoverse.com" target="_blank" class="hoyoplay-button hoyo-unique">
                 <div class="hoyoplay-icon">
@@ -1499,6 +1661,21 @@
             </div>
         </div>
         <div class="sidebar-content">
+            <!-- BOTÕES GAME E PROJETOS - MENORES -->
+            <div class="sidebar-buttons">
+                <a href="https://knox45.github.io/hub/game.html" target="_blank" class="sidebar-app-button games">
+                    <i class="fas fa-gamepad"></i>
+                    <span>GAME</span>
+                </a>
+                <a href="https://knox45.github.io/hub/projetos.html" target="_blank" class="sidebar-app-button projects">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>PROJETOS</span>
+                </a>
+                <a href="https://loirinhodid.github.io/phanteon" target="_blank" class="sidebar-app-button phanteon" title="Phanteon">
+                    <img src="https://www.steamgriddb.com/game/5437143/icons" alt="Phanteon" style="width: 70%; height: 70%; object-fit: contain; border-radius: 8px;">
+                </a>
+            </div>
+            
             <div class="apps-grid-icons" id="appsGridIcons">
                 <!-- Ícones serão gerados pelo JavaScript -->
             </div>
@@ -1513,7 +1690,7 @@
                 subtitle: 'Plataforma de jogos',
                 description: 'Jogue League of Legends, Valorant e outros jogos da Riot Games.',
                 icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKnJaJcVfuAJc2YxBhBp4ujW956ygaVD0vaA&s',
-                background: 'intro.mp4', // VÍDEO DA RIOT GAMES
+                background: 'intro.mp4',
                 interfaceImage: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
                 cardImage: 'https://www.riotgames.com/darkroom/1440/3842e6d651ce3662ac121876e11a4f75:72320612f65ada7ccd0b2c7af52cd4c1/rg-article-header-riot-client-game-hubs.png',
                 cardTitle: 'Riot Client',
@@ -1756,6 +1933,9 @@
                     hoyoButtonContainer.style.display = 'block';
                 }
                 
+                // ESCONDER botão Home na sidebar
+                document.querySelector('.sidebar-icon.home').style.display = 'none';
+                
                 // Gerar ícones na sidebar (MANTENDO A ORDEM ANTERIOR - RIOT GAMES PRIMEIRO)
                 const appsGridIcons = document.getElementById('appsGridIcons');
                 
@@ -1844,6 +2024,9 @@
                 if (hoyoButtonContainer) {
                     hoyoButtonContainer.style.display = 'none';
                 }
+                
+                // MOSTRAR botão Home na sidebar (apenas nas páginas internas)
+                document.querySelector('.sidebar-icon.home').style.display = 'flex';
                 
                 // Configurar a página com dados do app
                 document.getElementById('pageTitle').textContent = app.name;
@@ -1992,19 +2175,36 @@
             const appsBtn = document.getElementById('appsBtn');
             const closeSidebarBtn = document.getElementById('closeSidebarBtn');
             const appsSidebar = document.getElementById('appsSidebar');
+            const sidebarToggleBottom = document.getElementById('sidebarToggleBottom');
             
             appsBtn.addEventListener('click', function() {
                 appsSidebar.classList.add('active');
+                sidebarToggleBottom.innerHTML = '<i class="fas fa-arrow-left"></i>';
             });
             
             closeSidebarBtn.addEventListener('click', function() {
                 appsSidebar.classList.remove('active');
+            
+            });
+            
+            // Botão abaixo da sidebar
+            sidebarToggleBottom.addEventListener('click', function() {
+                if (appsSidebar.classList.contains('active')) {
+                    appsSidebar.classList.remove('active');
+                    sidebarToggleBottom.innerHTML = '<i class="fas fa-arrow-right"></i>';
+                } else {
+                    appsSidebar.classList.add('active');
+                    sidebarToggleBottom.innerHTML = '<i class="fas fa-arrow-left"></i>';
+                }
             });
 
             // Fechar sidebar ao clicar fora
             document.addEventListener('click', function(e) {
-                if (!appsSidebar.contains(e.target) && !appsBtn.contains(e.target)) {
+                if (!appsSidebar.contains(e.target) && 
+                    !appsBtn.contains(e.target) && 
+                    !sidebarToggleBottom.contains(e.target)) {
                     appsSidebar.classList.remove('active');
+                    sidebarToggleBottom.innerHTML = '<i class="fas fa-arrow-right"></i>';
                 }
             });
 
