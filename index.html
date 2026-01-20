@@ -65,7 +65,7 @@
         }
 
         /* ================================
-           SIDEBAR ESQUERDA TRANSPARENTE
+           SIDEBAR ESQUERDA TRANSPARENTE - POSIÇÃO ORIGINAL
         ================================ */
         .left-sidebar {
             width: 80px;
@@ -77,11 +77,13 @@
             flex-direction: column;
             align-items: center;
             padding-top: 30px;
+            padding-bottom: 30px;
             z-index: 100;
-            gap: 20px;
+            gap: 15px;
             position: fixed;
             left: 0;
             top: 0;
+            justify-content: flex-start; /* POSIÇÃO ORIGINAL */
         }
 
         .left-sidebar::before {
@@ -102,7 +104,7 @@
             z-index: -1;
         }
 
-        /* Logo com mais visibilidade */
+        /* Logo com mais visibilidade - POSIÇÃO ORIGINAL */
         .logo-container {
             width: 50px;
             height: 50px;
@@ -117,6 +119,8 @@
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             position: relative;
+            z-index: 110;
+            margin-bottom: 5px; /* PEQUENO ESPAÇAMENTO ABAIXO */
         }
 
         .logo-container::before {
@@ -147,7 +151,7 @@
             filter: brightness(1.1) contrast(1.1);
         }
 
-        /* Ícones da Sidebar com mais visibilidade */
+        /* Ícones da Sidebar com mais visibilidade - POSIÇÃO ORIGINAL */
         .sidebar-icon {
             width: 52px;
             height: 52px;
@@ -181,7 +185,7 @@
             box-shadow: 0 0 20px rgba(74, 109, 229, 0.4);
         }
 
-        /* Botão Home - APENAS NAS PÁGINAS INTERNAS */
+        /* Botão Home - APENAS NAS PÁGINAS INTERNAS - POSIÇÃO ORIGINAL */
         body.app-page .sidebar-icon.home {
             display: flex !important;
         }
@@ -193,6 +197,7 @@
         .sidebar-icon.home {
             background: rgba(59, 130, 246, 0.3);
             border-color: rgba(59, 130, 246, 0.5);
+            margin-bottom: 5px; /* ESPAÇAMENTO ORIGINAL */
         }
 
         .sidebar-icon.home:hover {
@@ -230,6 +235,23 @@
             border-color: rgba(249, 115, 22, 0.6);
         }
 
+        /* Ícone Phanteon - Roxo COM PRIORIDADE MAS MESMA POSIÇÃO */
+        .sidebar-icon.phanteon {
+            background: rgba(138, 43, 226, 0.3);
+            border-color: rgba(138, 43, 226, 0.5);
+            z-index: 120; /* MAIOR PRIORIDADE */
+            position: relative;
+            margin-bottom: 5px; /* MESMO ESPAÇAMENTO DOS OUTROS */
+            margin-top: auto; /* MANTER NA MESMA POSIÇÃO VERTICAL ORIGINAL */
+        }
+
+        .sidebar-icon.phanteon:hover {
+            background: rgba(138, 43, 226, 0.4);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.3);
+            border-color: rgba(138, 43, 226, 0.6);
+            z-index: 121;
+        }
+
         /* Tooltips para todos os ícones */
         .sidebar-icon::after {
             content: attr(title);
@@ -257,7 +279,7 @@
             bottom: -30px;
         }
 
-        /* Ícone Mais Opções - MAIOR E MAIS VISÍVEL */
+        /* Ícone Mais Opções - MESMA POSIÇÃO ORIGINAL (NO FINAL) */
         .more-options-icon {
             width: 56px;
             height: 56px;
@@ -267,13 +289,15 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
             background: rgba(157, 78, 221, 0.3);
             border: 1px solid rgba(157, 78, 221, 0.5);
             animation: purplePulse 2s infinite;
             overflow: hidden;
             padding: 0;
             box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
+            z-index: 100; /* MENOR QUE O PHANTEON */
+            margin-top: auto; /* EMPURRA PARA O FINAL - POSIÇÃO ORIGINAL */
+            position: relative;
         }
 
         .more-options-icon::before {
@@ -345,48 +369,14 @@
         }
 
         /* ================================
-           BOTÃO ABAIXO DA SIDEBAR
+           BOTÃO ABAIXO DA SIDEBAR - REMOVIDO
         ================================ */
         .sidebar-toggle-bottom {
-            position: fixed;
-            left: 20px;
-            bottom: 30px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(157, 78, 221, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(199, 125, 255, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #e0aaff;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 150;
-            box-shadow: 0 4px 12px rgba(157, 78, 221, 0.3);
-            animation: bottomPulse 3s infinite;
-        }
-
-        .sidebar-toggle-bottom:hover {
-            background: rgba(157, 78, 221, 0.5);
-            transform: scale(1.1) rotate(90deg);
-            border-color: rgba(224, 170, 255, 0.8);
-            box-shadow: 0 8px 20px rgba(157, 78, 221, 0.5);
-        }
-
-        @keyframes bottomPulse {
-            0%, 100% { 
-                box-shadow: 0 4px 12px rgba(157, 78, 221, 0.3);
-            }
-            50% { 
-                box-shadow: 0 4px 20px rgba(157, 78, 221, 0.6), 0 0 15px rgba(199, 125, 255, 0.4);
-            }
+            display: none !important;
         }
 
         /* ================================
-           CONTEÚDO PRINCIPAL
+           CONTEÚDO PRINCIPAL - POSIÇÃO ORIGINAL
         ================================ */
         .main-content {
             flex: 1;
@@ -395,7 +385,7 @@
             flex-direction: column;
             padding-top: 30px;
             max-width: 1000px;
-            margin-left: 80px;
+            margin-left: 80px; /* COMPENSA A SIDEBAR */
             position: relative;
             z-index: 2;
         }
@@ -505,11 +495,11 @@
             background: rgba(10, 10, 20, 0.5);
         }
 
-        /* BOTÕES GAME E PROJETOS NA SIDEBAR */
+        /* BOTÕES GAME E PROJETOS NA SIDEBAR - MENORES */
         .sidebar-buttons {
             display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 12px;
+            margin-bottom: 20px;
             width: 100%;
             justify-content: center;
         }
@@ -519,9 +509,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 100px;
-            height: 100px;
-            border-radius: 20px;
+            width: 75px;
+            height: 75px;
+            border-radius: 16px;
             background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.18);
@@ -560,8 +550,8 @@
         }
 
         .sidebar-app-button i {
-            font-size: 30px;
-            margin-bottom: 8px;
+            font-size: 22px;
+            margin-bottom: 6px;
             transition: all 0.3s ease;
         }
 
@@ -571,10 +561,21 @@
 
         .sidebar-app-button span {
             font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             text-align: center;
+        }
+
+        /* Ícone Phanteon */
+        .sidebar-app-button.phanteon {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(75, 0, 130, 0.4));
+            border-color: rgba(138, 43, 226, 0.5);
+        }
+
+        .sidebar-app-button.phanteon:hover {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.4), rgba(75, 0, 130, 0.5));
+            border-color: rgba(138, 43, 226, 0.7);
         }
 
         /* GRID DE ÍCONES APENAS */
@@ -586,11 +587,11 @@
             max-width: 300px;
         }
 
-        /* ÍCONES APENAS */
+        /* ÍCONES APENAS - TAMANHO REDUZIDO */
         .app-icon-only {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -613,8 +614,8 @@
         }
 
         .app-icon-only img {
-            width: 70%;
-            height: 70%;
+            width: 60%;
+            height: 60%;
             object-fit: contain;
             border-radius: 8px;
             filter: brightness(1.1);
@@ -648,7 +649,7 @@
         }
 
         /* ================================
-           CARD INFORMATIVO
+           CARD INFORMATIVO - POSIÇÃO ORIGINAL
         ================================ */
         .info-card {
             position: fixed;
@@ -717,7 +718,7 @@
         }
 
         /* ================================
-           BOTÃO INFERIOR (APENAS EM PÁGINAS DE APPS - NÃO APARECE NA HOME)
+           BOTÃO INFERIOR - POSIÇÃO ORIGINAL
         ================================ */
         .bottom-button-container {
             position: fixed;
@@ -982,7 +983,7 @@
         }
 
         /* ================================
-           ÍCONES SOCIAIS
+           ÍCONES SOCIAIS - POSIÇÃO ORIGINAL
         ================================ */
         .right-sidebar {
             position: fixed;
@@ -1081,7 +1082,7 @@
         .delay-3 { animation-delay: 0.6s; opacity: 0; }
 
         /* ================================
-           BOTÃO HOYO PLAY (APENAS NA PÁGINA INICIAL)
+           BOTÃO HOYO PLAY (APENAS NA PÁGINA INICIAL) - POSIÇÃO ORIGINAL
         ================================ */
         .hoyoplay-button-container.isolated-hoyo {
             position: fixed;
@@ -1534,13 +1535,8 @@
         <span>Computador</span>
     </div>
 
-    <!-- Botão abaixo da sidebar -->
-    <div class="sidebar-toggle-bottom" id="sidebarToggleBottom" title="Abrir Apps">
-        <i class="fas fa-arrow-right"></i>
-    </div>
-
     <div class="app-container">
-        <!-- Sidebar esquerda -->
+        <!-- Sidebar esquerda - ESTRUTURA ORIGINAL -->
         <div class="left-sidebar">
             <!-- Logo -->
             <div class="logo-container" onclick="window.location.href = 'index.html'">
@@ -1552,17 +1548,13 @@
                 <i class="fas fa-home"></i>
             </a>
             
-            <!-- Ícone Games - VERDE -->
-            <a href="https://knox45.github.io/hub/game.html" target="_blank" class="sidebar-icon games" title="Games">
-                <i class="fas fa-gamepad"></i>
+            <!-- ÍCONE PHANTEON - MESMA POSIÇÃO ORIGINAL (logo acima do botão Apps) -->
+            <!-- COM ID PARA O JAVASCRIPT -->
+            <a href="https://loirinhodid.github.io/phanteon" target="_blank" class="sidebar-icon phanteon" title="Phanteon" id="phanteonIcon">
+                <img src="https://preview.redd.it/zenless-zone-zero-icon-v0-9ss6qz6tuwx81.png?auto=webp&s=a1ae22c3c24df4db08c9c540313d59f60776957e" alt="Phanteon" style="width: 100%; height: 100%; object-fit: contain; border-radius: 10px;">
             </a>
             
-            <!-- Ícone Projetos - LARANJA -->
-            <a href="https://knox45.github.io/hub/projetos.html" target="_blank" class="sidebar-icon projects" title="Projetos">
-                <i class="fas fa-project-diagram"></i>
-            </a>
-            
-            <!-- Ícone Apps - ROXO COM IMAGEM PERSONALIZADA -->
+            <!-- Ícone Apps - NA MESMA POSIÇÃO ORIGINAL (no final da sidebar) -->
             <div class="more-options-icon" id="appsBtn" title="Todos os Apps">
                 <img src="ico.png" alt="Apps">
             </div>
@@ -1664,7 +1656,7 @@
             </div>
         </div>
         <div class="sidebar-content">
-            <!-- BOTÕES GAME E PROJETOS -->
+            <!-- BOTÕES GAME E PROJETOS - MENORES -->
             <div class="sidebar-buttons">
                 <a href="https://knox45.github.io/hub/game.html" target="_blank" class="sidebar-app-button games">
                     <i class="fas fa-gamepad"></i>
@@ -1910,6 +1902,23 @@
                 deviceIndicator.style.background = 'rgba(34, 197, 94, 0.35)';
             }
 
+            // CORREÇÃO DO ÍCONE PHANTEON - AGORA FUNCIONANDO E NA POSIÇÃO CORRETA
+            const phanteonIcon = document.getElementById('phanteonIcon');
+            if (phanteonIcon) {
+                // Remover eventos existentes
+                const newPhanteonIcon = phanteonIcon.cloneNode(true);
+                phanteonIcon.parentNode.replaceChild(newPhanteonIcon, phanteonIcon);
+                
+                // Adicionar evento seguro
+                const fixedPhanteonIcon = document.getElementById('phanteonIcon');
+                fixedPhanteonIcon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Abrindo Phanteon...');
+                    window.open('https://loirinhodid.github.io/phanteon', '_blank', 'noopener,noreferrer');
+                }, true);
+            }
+
             // Verificar se estamos em uma página de app
             const urlParams = new URLSearchParams(window.location.search);
             const appId = urlParams.get('app');
@@ -1992,7 +2001,7 @@
                 document.getElementById('cardContent').textContent = 'Acesse todos os Games favoritos da HoyoVerse em um só lugar. Clique no botão amarelo para ver a lista dos games disponíveis.';
                 document.getElementById('cardSubtitle').innerHTML = 'Hub <u>Não</u> <u>associado</u> à Hoyoverse';
                 
-                // BOTÃO INFERIOR NÃO APARECE NA PÁGINA INICIAL (removido o Hoyo Play)
+                // BOTÃO INFERIOR NÃO APARECE NA PÁGINA INICIAL
                 document.getElementById('bottomButtonContainer').innerHTML = '';
                 
                 // Remover classe de app page do body
@@ -2025,8 +2034,9 @@
                     hoyoButtonContainer.style.display = 'none';
                 }
                 
-                // MOSTRAR botão Home na sidebar (apenas nas páginas internas)
-                document.querySelector('.sidebar-icon.home').style.display = 'flex';
+                // IMPORTANTE: Mostrar botão Home na sidebar (apenas nas páginas internas)
+                const homeIcon = document.querySelector('.sidebar-icon.home');
+                homeIcon.style.display = 'flex';
                 
                 // Configurar a página com dados do app
                 document.getElementById('pageTitle').textContent = app.name;
@@ -2040,7 +2050,7 @@
                 // BOTÃO DO APP REMOVIDO - SÓ TEMOS O BOTÃO INFERIOR DIREITO
                 document.getElementById('appButtonContainer').style.display = 'none';
                 
-                // Configurar fundo do body - AGORA MAIS VISÍVEL
+                // Configurar fundo do body
                 document.body.classList.add('app-page');
                 
                 // Verificar se é o vídeo da Riot Games
@@ -2065,7 +2075,7 @@
                     document.body.style.backgroundImage = `url('${app.background}')`;
                 }
                 
-                // Configurar card informativo (do app específico) - IMAGEM DIFERENTE
+                // Configurar card informativo (do app específico)
                 document.getElementById('cardImage').innerHTML = `
                     <img src="${app.cardImage}" alt="${app.name}">
                 `;
@@ -2073,7 +2083,7 @@
                 document.getElementById('cardContent').textContent = app.cardContent || app.description;
                 document.getElementById('cardSubtitle').textContent = app.cardSubtitle || '';
                 
-                // BOTÃO INFERIOR APARECE EM PÁGINAS DE APPS (agora com a cor do app)
+                // BOTÃO INFERIOR APARECE EM PÁGINAS DE APPS
                 document.getElementById('bottomButtonContainer').innerHTML = `
                     <a href="#" class="bottom-button ${app.color}" id="bottomAppButton" title="Abrir ${app.name}">
                         <div class="bottom-button-icon">
@@ -2175,36 +2185,20 @@
             const appsBtn = document.getElementById('appsBtn');
             const closeSidebarBtn = document.getElementById('closeSidebarBtn');
             const appsSidebar = document.getElementById('appsSidebar');
-            const sidebarToggleBottom = document.getElementById('sidebarToggleBottom');
             
-            appsBtn.addEventListener('click', function() {
+            appsBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
                 appsSidebar.classList.add('active');
-                sidebarToggleBottom.innerHTML = '<i class="fas fa-arrow-left"></i>';
             });
             
             closeSidebarBtn.addEventListener('click', function() {
                 appsSidebar.classList.remove('active');
-                sidebarToggleBottom.innerHTML = '<i class="fas fa-arrow-right"></i>';
-            });
-            
-            // Botão abaixo da sidebar
-            sidebarToggleBottom.addEventListener('click', function() {
-                if (appsSidebar.classList.contains('active')) {
-                    appsSidebar.classList.remove('active');
-                    sidebarToggleBottom.innerHTML = '<i class="fas fa-arrow-right"></i>';
-                } else {
-                    appsSidebar.classList.add('active');
-                    sidebarToggleBottom.innerHTML = '<i class="fas fa-arrow-left"></i>';
-                }
             });
 
             // Fechar sidebar ao clicar fora
             document.addEventListener('click', function(e) {
-                if (!appsSidebar.contains(e.target) && 
-                    !appsBtn.contains(e.target) && 
-                    !sidebarToggleBottom.contains(e.target)) {
+                if (!appsSidebar.contains(e.target) && !appsBtn.contains(e.target)) {
                     appsSidebar.classList.remove('active');
-                    sidebarToggleBottom.innerHTML = '<i class="fas fa-arrow-right"></i>';
                 }
             });
 
