@@ -77,7 +77,6 @@
             flex-direction: column;
             align-items: center;
             padding-top: 30px;
-            padding-bottom: 30px; /* Adicionado padding bottom */
             z-index: 100;
             gap: 20px;
             position: fixed;
@@ -231,18 +230,6 @@
             border-color: rgba(249, 115, 22, 0.6);
         }
 
-        /* Ícone Phanteon - Roxo */
-        .sidebar-icon.phanteon {
-            background: rgba(138, 43, 226, 0.3);
-            border-color: rgba(138, 43, 226, 0.5);
-        }
-
-        .sidebar-icon.phanteon:hover {
-            background: rgba(138, 43, 226, 0.4);
-            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.3);
-            border-color: rgba(138, 43, 226, 0.6);
-        }
-
         /* Tooltips para todos os ícones */
         .sidebar-icon::after {
             content: attr(title);
@@ -270,7 +257,7 @@
             bottom: -30px;
         }
 
-        /* Ícone Mais Opções - AGORA NO FLUXO DA SIDEBAR */
+        /* Ícone Mais Opções - MAIOR E MAIS VISÍVEL */
         .more-options-icon {
             width: 56px;
             height: 56px;
@@ -280,14 +267,13 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
             background: rgba(157, 78, 221, 0.3);
             border: 1px solid rgba(157, 78, 221, 0.5);
             animation: purplePulse 2s infinite;
             overflow: hidden;
             padding: 0;
             box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
-            z-index: 150;
-            margin-top: auto; /* Isso empurra para o final */
         }
 
         .more-options-icon::before {
@@ -359,10 +345,35 @@
         }
 
         /* ================================
-           BOTÃO ABAIXO DA SIDEBAR - REMOVIDO
+           BOTÃO ABAIXO DA SIDEBAR
         ================================ */
         .sidebar-toggle-bottom {
-            display: none !important;
+            position: fixed;
+            left: 20px;
+            bottom: 30px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(157, 78, 221, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(199, 125, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e0aaff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 150;
+            box-shadow: 0 4px 12px rgba(157, 78, 221, 0.3);
+            animation: bottomPulse 3s infinite;
+        }
+
+        .sidebar-toggle-bottom:hover {
+            background: rgba(157, 78, 221, 0.5);
+            transform: scale(1.1) rotate(90deg);
+            border-color: rgba(224, 170, 255, 0.8);
+            box-shadow: 0 8px 20px rgba(157, 78, 221, 0.5);
         }
 
         @keyframes bottomPulse {
@@ -494,11 +505,11 @@
             background: rgba(10, 10, 20, 0.5);
         }
 
-        /* BOTÕES GAME E PROJETOS NA SIDEBAR - MENORES */
+        /* BOTÕES GAME E PROJETOS NA SIDEBAR */
         .sidebar-buttons {
             display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 15px;
+            margin-bottom: 25px;
             width: 100%;
             justify-content: center;
         }
@@ -508,9 +519,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 75px;
-            height: 75px;
-            border-radius: 16px;
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
             background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.18);
@@ -549,8 +560,8 @@
         }
 
         .sidebar-app-button i {
-            font-size: 22px;
-            margin-bottom: 6px;
+            font-size: 30px;
+            margin-bottom: 8px;
             transition: all 0.3s ease;
         }
 
@@ -560,21 +571,10 @@
 
         .sidebar-app-button span {
             font-family: 'Orbitron', sans-serif;
-            font-size: 10px;
+            font-size: 12px;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             text-align: center;
-        }
-
-        /* Ícone Phanteon */
-        .sidebar-app-button.phanteon {
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(75, 0, 130, 0.4));
-            border-color: rgba(138, 43, 226, 0.5);
-        }
-
-        .sidebar-app-button.phanteon:hover {
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.4), rgba(75, 0, 130, 0.5));
-            border-color: rgba(138, 43, 226, 0.7);
         }
 
         /* GRID DE ÍCONES APENAS */
@@ -586,11 +586,11 @@
             max-width: 300px;
         }
 
-        /* ÍCONES APENAS - TAMANHO REDUZIDO */
+        /* ÍCONES APENAS */
         .app-icon-only {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -613,8 +613,8 @@
         }
 
         .app-icon-only img {
-            width: 60%;
-            height: 60%;
+            width: 70%;
+            height: 70%;
             object-fit: contain;
             border-radius: 8px;
             filter: brightness(1.1);
@@ -1552,15 +1552,17 @@
                 <i class="fas fa-home"></i>
             </a>
             
-            <!-- Espaço flexível para empurrar ícones para baixo -->
-            <div style="flex-grow: 1;"></div>
-            
-            <!-- ÍCONE PHANTEON - VAI FICAR LOGO ACIMA DO BOTÃO ROXO -->
-            <a href="https://loirinhodid.github.io/phanteon" target="_blank" class="sidebar-icon phanteon" title="Phanteon">
-                <img src="https://preview.redd.it/zenless-zone-zero-icon-v0-9ss6qz6tuwx81.png?auto=webp&s=a1ae22c3c24df4db08c9c540313d59f60776957e" alt="Phanteon" style="width: 100%; height: 100%; object-fit: contain; border-radius: 10px;">
+            <!-- Ícone Games - VERDE -->
+            <a href="https://knox45.github.io/hub/game.html" target="_blank" class="sidebar-icon games" title="Games">
+                <i class="fas fa-gamepad"></i>
             </a>
             
-            <!-- Ícone Apps - ROXO COM IMAGEM PERSONALIZADA (AGORA NO FLUXO DA SIDEBAR) -->
+            <!-- Ícone Projetos - LARANJA -->
+            <a href="https://knox45.github.io/hub/projetos.html" target="_blank" class="sidebar-icon projects" title="Projetos">
+                <i class="fas fa-project-diagram"></i>
+            </a>
+            
+            <!-- Ícone Apps - ROXO COM IMAGEM PERSONALIZADA -->
             <div class="more-options-icon" id="appsBtn" title="Todos os Apps">
                 <img src="ico.png" alt="Apps">
             </div>
@@ -1662,7 +1664,7 @@
             </div>
         </div>
         <div class="sidebar-content">
-            <!-- BOTÕES GAME E PROJETOS - MENORES -->
+            <!-- BOTÕES GAME E PROJETOS -->
             <div class="sidebar-buttons">
                 <a href="https://knox45.github.io/hub/game.html" target="_blank" class="sidebar-app-button games">
                     <i class="fas fa-gamepad"></i>
@@ -2182,6 +2184,7 @@
             
             closeSidebarBtn.addEventListener('click', function() {
                 appsSidebar.classList.remove('active');
+                sidebarToggleBottom.innerHTML = '<i class="fas fa-arrow-right"></i>';
             });
             
             // Botão abaixo da sidebar
