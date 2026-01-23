@@ -983,7 +983,7 @@
         }
 
         /* ================================
-           ÍCONES SOCIAIS - POSIÇÃO ORIGINAL
+           ÍCONES SOCIAIS - MODIFICADO PARA HOYOLAB
         ================================ */
         .right-sidebar {
             position: fixed;
@@ -992,7 +992,7 @@
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px; /* Aumentei o espaçamento entre os ícones */
             z-index: 100;
         }
 
@@ -1019,6 +1019,63 @@
             transform: translateX(-5px) scale(1.1);
             border-color: rgba(255, 255, 255, 0.3);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ÍCONE DO HOYOLAB COM PNG - POSICIONADO NO TOPO E SEM BACKGROUND */
+        .social-icon.hoyolab {
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            margin-bottom: 10px; /* Afastado dos outros ícones */
+            position: relative;
+            top: -10px; /* Movido mais para cima */
+        }
+
+        .social-icon.hoyolab:hover {
+            background: none !important;
+            border: none !important;
+            transform: translateX(-5px) scale(1.15); /* Efeito mais forte */
+        }
+
+        .social-icon.hoyolab img {
+            width: 45px; /* Tamanho um pouco maior */
+            height: 45px;
+            object-fit: contain;
+            border-radius: 50%;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .social-icon.hoyolab:hover img {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.5));
+        }
+
+        /* Tooltip para o Hoyolab */
+        .social-icon.hoyolab::after {
+            content: 'Hoyolab';
+            position: absolute;
+            bottom: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            pointer-events: none;
+            backdrop-filter: blur(5px);
+        }
+
+        .social-icon.hoyolab:hover::after {
+            opacity: 1;
+            visibility: visible;
+            bottom: -33px;
         }
 
         /* ================================
@@ -1276,6 +1333,10 @@
                 font-size: 17px;
                 padding: 13px 26px;
             }
+            
+            .right-sidebar {
+                gap: 12px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1324,6 +1385,12 @@
                 margin: 25px auto 0;
                 right: 0;
                 gap: 10px;
+            }
+            
+            .social-icon.hoyolab {
+                position: relative;
+                top: 0;
+                margin-bottom: 0;
             }
             
             .social-icon:hover {
@@ -1497,6 +1564,11 @@
             .hoyoplay-icon {
                 font-size: 19px;
             }
+            
+            .social-icon.hoyolab img {
+                width: 40px;
+                height: 40px;
+            }
         }
 
         @media (max-width: 360px) {
@@ -1518,6 +1590,11 @@
             
             .hoyoplay-button-container.isolated-hoyo {
                 margin: 25px auto 15px;
+            }
+            
+            .social-icon.hoyolab img {
+                width: 38px;
+                height: 38px;
             }
         }
     </style>
@@ -1596,8 +1673,14 @@
             </div>
         </div>
 
-        <!-- Ícones sociais -->
+        <!-- Ícones sociais - MODIFICADO: HOYOLAB NO TOPO -->
         <div class="right-sidebar">
+            <!-- ÍCONE DO HOYOLAB NO TOPO - SEM BACKGROUND -->
+            <a href="https://www.hoyolab.com/accountCenter/postList?id=448328530" target="_blank" class="social-icon hoyolab fade-in delay-1" title="Hoyolab">
+                <img src="hoyolab.png" alt="Hoyolab">
+            </a>
+            
+            <!-- Outros ícones sociais -->
             <a href="https://www.instagram.com/gustta_mastergg" target="_blank" class="social-icon fade-in delay-1">
                 <i class="fab fa-instagram"></i>
             </a>
