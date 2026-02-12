@@ -35,15 +35,9 @@
             background-repeat: no-repeat;
         }
 
-        /* Overlay mais claro para melhor visibilidade */
+        /* Overlay removido conforme solicitado (sem película escura) */
         .page-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 10, 20, 0.65);
-            z-index: -2;
+            display: none !important;
         }
 
         /* Imagem de fundo da página inicial (NÃO MEXER) */
@@ -55,7 +49,7 @@
             height: 100%;
             z-index: -3;
             background: url('https://fastcdn.hoyoverse.com/content-v2/plat/156056/0d31e9d3b8fa3a6c8567e55e94e6ea0e_52720885226659725.jpg') center/cover no-repeat;
-            filter: brightness(0.7);
+            filter: brightness(1);
         }
 
         .app-container {
@@ -239,10 +233,14 @@
         .sidebar-icon.phanteon {
             background: rgba(138, 43, 226, 0.3);
             border-color: rgba(138, 43, 226, 0.5);
-            z-index: 120; /* MAIOR PRIORIDADE */
-            position: relative;
-            margin-bottom: 5px; /* MESMO ESPAÇAMENTO DOS OUTROS */
-            margin-top: auto; /* MANTER NA MESMA POSIÇÃO VERTICAL ORIGINAL */
+            z-index: 130; /* MAIOR PRIORIDADE */
+            position: absolute; /* posicionar fixo dentro da sidebar */
+            left: 12px;
+            bottom: 110px; /* ficar bem em cima do botão de "mais apps" */
+            width: 56px;
+            height: 56px;
+            margin: 0;
+            border-radius: 12px;
         }
 
         .sidebar-icon.phanteon:hover {
